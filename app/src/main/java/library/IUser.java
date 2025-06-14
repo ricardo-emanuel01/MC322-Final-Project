@@ -1,6 +1,9 @@
 package library;
 
+import java.util.UUID;
+
 public interface IUser {
-    public void solicitarEmprestimo(Livro livro);
-    public void devolverLivro(Livro livro);
+    public void emprestar(UUID IDObjeto);
+    public void renovar(UUID IDObjeto);
+    public void devolver(UUID IDObjeto);
 }
