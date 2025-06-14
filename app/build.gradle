@@ -35,6 +35,8 @@ dependencies {
 
     implementation "org.openjfx:javafx-controls:${javafxVersion}:${platform}"
     implementation "org.openjfx:javafx-fxml:${javafxVersion}:${platform}"
+
+    implementation 'org.mindrot:jbcrypt:0.4'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -46,7 +48,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.library.App'
+    mainClass = 'library.App'
 }
 
 tasks.named('test') {
