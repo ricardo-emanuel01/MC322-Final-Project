@@ -3,7 +3,7 @@ package library;
 import java.util.UUID;
 
 public interface IUser {
-    public void emprestar(UUID IDObjeto);
-    public void renovar(UUID IDObjeto);
-    public void devolver(UUID IDObjeto);
+    public Emprestimo emprestar(UUID IDObjeto);
+    public Emprestimo renovar(UUID IDObjeto);
+    public Emprestimo devolver(UUID IDObjeto);
 }
