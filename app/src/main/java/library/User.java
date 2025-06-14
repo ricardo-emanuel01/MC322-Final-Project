@@ -8,6 +8,7 @@ public class User implements IUser{
     private String senhaHashed;
     private Permissoes permissoes;
     private String IDBilioteca;
+    private Emprestimo emprestimos;
 
     public User(
         String primeiroNome,
