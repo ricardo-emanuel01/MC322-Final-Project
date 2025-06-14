@@ -1,44 +1,36 @@
+package library;
+
 import java.util.ArrayList;
 
 public class User implements IUser{
-    private String nome;
-    private int codigo;
-    private ArrayList<Livro> livrosEmprestados;
+    private String primeiroNome;
+    private String email;
+    private String senhaHashed;
+    private Permissoes permissoes;
+    private String IDBilioteca;
 
-    public User(String nome, int codigo) {
-        this.nome = nome;
-        this.codigo = codigo;
-        this.livrosEmprestados = new ArrayList<>();
+    public User(
+        String primeiroNome,
+        String email,
+        String senha,
+        String permissoes,
+        String IDBilioteca
+    ) {
+        if (!emailValido(email)) {
+            throw new IllegalArgumentException(
+                "O email fornecido não é válido, tente novamente!"
+            );
+        }
+        this.primeiroNome = primeiroNome;
+        this.email = email;
+        this.senhaHashed = senha;
+        this.permissoes = Permissoes.valueOf(permissoes);
+        this.IDBilioteca = IDBilioteca;
     }
 
-    public void solicitarEmprestimo(Livro livro) {
-        livrosEmprestados.add(livro);
-    }
-    public void devolverLivro(Livro livro) {
-        livrosEmprestados.remove(livro);
-    }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public ArrayList<Livro> getLivrosEmprestados() {
-        return livrosEmprestados;
-    }
-
-    public void setLivrosEmprestados(ArrayList<Livro> livrosEmprestados) {
-        this.livrosEmprestados = livrosEmprestados;
+    private boolean emailValido(String email) {
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email != null && email.matches(regex);
     }
 }
