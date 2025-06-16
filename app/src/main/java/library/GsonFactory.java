@@ -9,10 +9,13 @@ import com.google.gson.GsonBuilder;
  */
 public class GsonFactory {
     // TODO: Adapter para Biblioteca
-    public static Gson buildGson() {
-        return new GsonBuilder()
+    private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(User.class, new UserDeserializer())
             .registerTypeAdapter(User.class, new UserSerializer())
             .create();
+    }
+
+    public static Gson getGson() {
+        return this.gson;
     }
 }
