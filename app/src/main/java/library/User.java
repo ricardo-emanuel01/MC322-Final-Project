@@ -9,23 +9,27 @@ public class User {
     private String email;
     private String senhaHashed;
     private Permissoes permissoes;
-    private String IDBilioteca;
     private List<Emprestimo> emprestimos;
 
     public User(
         String primeiroNome,
         String email,
         String senha,
-        String permissoes,
-        String IDBilioteca
+        String permissoes
     ) {
         this.primeiroNome = primeiroNome;
         this.email = email;
         this.senhaHashed = senha;
         this.permissoes = Permissoes.valueOf(permissoes);
-        this.IDBilioteca = IDBilioteca;
         this.emprestimos = new ArrayList<Emprestimo>();
     }
+
+
+    // Getter utilizados pelo Gson
+    public String getPrimeiroNome() {return this.primeiroNome;} 
+    public String getEmail() {return this.email;}
+    public String getSenha() {return this.senhaHashed;}
+    public String getPermissoes() {return this.permissoes.toString();}
 
 
     /**
