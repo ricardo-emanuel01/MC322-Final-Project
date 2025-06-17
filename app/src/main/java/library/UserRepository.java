@@ -19,7 +19,7 @@ public class UserRepository {
     }
 
     public void saveUsers(Set<User> users) throws IOException {
-        try(Writer writer = new FileWriter(this.file)) {
+        try (Writer writer = new FileWriter(this.file)) {
             gson.toJson(users, writer);
         }
     }
