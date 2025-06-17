@@ -1,44 +1,73 @@
+package library;
+
 import java.util.ArrayList;
+import java.util.List;
 
-public class User implements IUser{
-    private String nome;
-    private int codigo;
-    private ArrayList<Livro> livrosEmprestados;
 
-    public User(String nome, int codigo) {
-        this.nome = nome;
-        this.codigo = codigo;
-        this.livrosEmprestados = new ArrayList<>();
+public class User {
+    private String primeiroNome;
+    private String email;
+    private String senhaHashed;
+    private Permissoes permissoes;
+    private List<Emprestimo> emprestimos;
+
+    public User(
+        String primeiroNome,
+        String email,
+        String senha,
+        String permissoes
+    ) {
+        this.primeiroNome = primeiroNome;
+        this.email = email;
+        this.senhaHashed = senha;
+        this.permissoes = Permissoes.valueOf(permissoes);
+        this.emprestimos = new ArrayList<Emprestimo>();
     }
 
-    public void solicitarEmprestimo(Livro livro) {
-        livrosEmprestados.add(livro);
-    }
-    public void devolverLivro(Livro livro) {
-        livrosEmprestados.remove(livro);
+
+    // Getter utilizados pelo Gson
+    public String getPrimeiroNome() {return this.primeiroNome;} 
+    public String getEmail() {return this.email;}
+    public String getSenha() {return this.senhaHashed;}
+    public String getPermissoes() {return this.permissoes.toString();}
+
+
+    /**
+     * Utilizado para criar um emprestimo
+     * @param emprestimo o record do emprestimo gerenciado pela Biblioteca
+     */
+    public void emprestar(Emprestimo emprestimo) {
+        this.emprestimos.add(emprestimo);
     }
 
-    public String getNome() {
-        return nome;
+
+    /**
+     * Utilizado para remover um emprestimo do sistema ao ser devolvido
+     * Remove o emprestimo com o ID do objeto em emprestimo
+     * @param IDObjeto ID do objeto a ter emprestimo excluido
+     * @return false caso o objeto nao esteja nos emprestimos do usuario
+     */
+    public boolean devolver(String IDObjeto) {
+        for (int i = 0; i < this.emprestimos.size(); ++i) {
+            String objAtual = this.emprestimos.get(i).objEmprestado().toString();
+            if (IDObjeto.equals(objAtual)) {
+                this.emprestimos.remove(i);
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public ArrayList<Livro> getLivrosEmprestados() {
-        return livrosEmprestados;
-    }
-
-    public void setLivrosEmprestados(ArrayList<Livro> livrosEmprestados) {
-        this.livrosEmprestados = livrosEmprestados;
+    /**
+     * Utilizado para renovar um emprestimo
+     * @param emprestimo o record do novo emprestimo
+     */
+    public void renovar(Emprestimo emprestimo) {
+        // TODO: Renovações apenas no dia da devolução
+        // Lógica do todo acima deve estar na Biblioteca
+        this.devolver(emprestimo.objEmprestado().toString());
+        this.emprestimos.add(emprestimo);
     }
 }

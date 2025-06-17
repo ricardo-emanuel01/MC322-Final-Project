@@ -1,4 +1,9 @@
+package library;
+
+import java.util.UUID;
+
 public interface IUser {
-    public void solicitarEmprestimo(Livro livro);
-    public void devolverLivro(Livro livro);
+    public Emprestimo emprestar(UUID IDObjeto, int duracaoEmprestimo);
+    public Emprestimo renovar(UUID IDObjeto, int duracaoEmprestimo);
+    public Emprestimo devolver(UUID IDObjeto);
 }
