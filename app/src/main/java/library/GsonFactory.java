@@ -12,10 +12,11 @@ public class GsonFactory {
     private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(User.class, new UserDeserializer())
             .registerTypeAdapter(User.class, new UserSerializer())
+            .registerTypeAdapter(Livro.class, new LivroDeserializer())
+            .registerTypeAdapter(Livro.class, new LivroSerializer())
             .create();
-    }
 
     public static Gson getGson() {
-        return this.gson;
+        return gson;
     }
 }
