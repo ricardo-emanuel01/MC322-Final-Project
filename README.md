@@ -2,7 +2,7 @@
 ## Integrantes
 - Ricardo Emanuel de Oliveira - 200518
 - Wictor Luis Barbian da Silva - 225845
-- Cassiano Martins Oliveira Caro - 247
+- Cassiano Martins Oliveira Caro - 247905
 - Marcos Revejes Pedroso - 202693
 
 [Documentação Gson](https://github.com/google/gson/blob/main/UserGuide.md)
