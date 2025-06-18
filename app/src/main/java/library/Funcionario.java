@@ -1,3 +1,5 @@
+package library;
+
 public class Funcionario extends User implements IFuncionario {
 
     public Funcionario(String nome, int codigo, String cargo, String setor) {

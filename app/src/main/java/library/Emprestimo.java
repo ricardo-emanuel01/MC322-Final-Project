@@ -17,4 +17,15 @@ public record Emprestimo(
     LocalDate dataEmprestimo,
     LocalDate dataPrevisaoDevolucao,
     LocalDate dataUltimaRenovacao
-) {}
+) 
+{ 
+    public static Emprestimo renovacao(Emprestimo emprestimo, LocalDate dataRenovacao) {
+        return new Emprestimo(
+            emprestimo.usuario(),
+            emprestimo.objEmprestado(),
+            emprestimo.dataEmprestimo(),
+            dataRenovacao.plusDays(7), 
+            dataRenovacao
+        );
+    }
+}
