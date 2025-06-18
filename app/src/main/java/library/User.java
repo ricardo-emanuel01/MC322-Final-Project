@@ -33,6 +33,21 @@ public class User {
 
 
     /**
+     * Implementação do método de filtro para o padrão Criteria
+     * @param item o objeto a ser testado
+     * @return User o objeto encontrado ou seja pode ser User ou null
+     */
+    public static User aplica(User item) {
+        if (item == null) {
+            return null;
+        }
+        // Aqui poderia ser implementada uma lógica de filtro mais complexa
+        return item;
+    }
+
+
+
+    /**
      * Utilizado para criar um emprestimo
      * @param emprestimo o record do emprestimo gerenciado pela Biblioteca
      */

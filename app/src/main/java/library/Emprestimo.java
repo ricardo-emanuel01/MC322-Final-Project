@@ -28,4 +28,8 @@ public record Emprestimo(
             dataRenovacao
         );
     }
+
+    // getter para o filtro de emprestimos
+    public String getUsuario() {return usuario;}
+    public UUID getObjEmprestado() {return objEmprestado;}
 }

@@ -1,14 +1,15 @@
 package library;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.UUID;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Biblioteca {
     private String nome;
-    private ArrayList<Emprestavel> acervo;
-    private ArrayList<IUser> usuarios;
-    private ArrayList<Emprestimo> emprestimos;
+    private Set<Emprestavel> acervo;
+    private Set<User> usuarios;
+    private Set<Emprestimo> emprestimos;
 
 
 
@@ -19,17 +20,17 @@ public class Biblioteca {
      */
     private Biblioteca(String nome, String endereco) {
         this.nome = nome;
-        this.acervo = new ArrayList<Emprestavel>();
-        this.usuarios = new ArrayList<IUser>();
-        this.emprestimos = new ArrayList<>();
+        this.acervo = new HashSet<Emprestavel>();
+        this.usuarios = new HashSet<User>();
+        this.emprestimos = new HashSet<>();
     }
 
 
     // getters 
     protected String getNome() { return nome; }
-    protected ArrayList<Emprestavel> getAcervo() { return acervo; }
-    protected ArrayList<IUser> getUsuarios() { return usuarios; }
-    protected ArrayList<Emprestimo> getEmprestimos() { return emprestimos; }
+    protected Set<Emprestavel> getAcervo() { return acervo; }
+    protected Set<User> getUsuarios() { return usuarios; }
+    protected Set<Emprestimo> getEmprestimos() { return emprestimos; }
 
 
     /**
@@ -86,10 +87,10 @@ public class Biblioteca {
      */
     public boolean removeEmprestimo(Emprestimo emprestimo) {
         // aqui vamos remover um emprestimo da lista de emprestimos e do usuario também
-        // TODO: filter criteria para usuario
         if (emprestimos.contains(emprestimo)) {
-            // Aqui DEVEMOS remover o emprestimo do usuario também
-            // nao vai ter isso por enquanto
+            String user = emprestimo.usuario();
+            User usuario = FilterCollection.filtrarUser(usuarios, user);
+            usuario.devolver(emprestimo.objEmprestado().toString());
             emprestimos.remove(emprestimo);
             return true;
         }
@@ -103,8 +104,16 @@ public class Biblioteca {
     public boolean renovaEmprestimo(Emprestimo emprestimo, LocalDate dataRenovacao) {
         if (emprestimos.contains(emprestimo)) {
             Emprestimo novoEmprestimo = Emprestimo.renovacao(emprestimo, dataRenovacao);
+
+            // remove antigo emprestimo e adiciona novo
+            String user = emprestimo.usuario();
+            User usuario = FilterCollection.filtrarUser(usuarios, user);
+            usuario.devolver(emprestimo.objEmprestado().toString());
             emprestimos.remove(emprestimo);
+            
+            // adiciona novo emprestimo
             emprestimos.add(novoEmprestimo);
+            usuario.emprestar(novoEmprestimo);
             return true;
         }
         return false;
