@@ -1,3 +1,5 @@
+package library;
+
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,8 +41,8 @@ public class telaLoginController {
 
         boolean loginOK = false;
 
-        for(User user : UserDatabase.getUsers()){
-            if(user.getNome().equals(usuario) && user.getSenha().equals(senha) && loginOK == false){
+        for(User user : Biblioteca.getUsuarios()){
+            if(user.getPrimeiroNome().equals(usuario) && user.getSenha().equals(senha) && loginOK == false){
                 loginOK = true;
                 System.out.println("Login efetuado com sucesso!");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -49,7 +51,7 @@ public class telaLoginController {
                 alert.setContentText("Login efetuado com sucesso!");
                 alert.showAndWait();
 
-                if(user.getTypeUser() == 1){
+                if(user.getPermissoes() == "ADMIN"){
                     try{
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("telaFuncionario.fxml"));
                         Parent root = loader.load();
@@ -64,7 +66,7 @@ public class telaLoginController {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } else if (user.getTypeUser() == 0){
+                } else if (user.getPermissoes() == "LEITOR"){
                     try{
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("telaUsuario.fxml"));
                         Parent root = loader.load();

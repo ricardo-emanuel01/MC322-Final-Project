@@ -1,14 +1,16 @@
+package library;
+
 import java.util.ArrayList;
 
 public class Biblioteca {
     private String nome;
     private ArrayList<Livro> livros;
-    private ArrayList<User> usuarios;
+    private static ArrayList<User> usuarios;
 
     public Biblioteca(String nome, String endereco) {
         this.nome = nome;
         this.livros = new ArrayList<>();
-        this.usuarios = new ArrayList<>();
+        Biblioteca.usuarios = new ArrayList<>();
     }
 
     public void cadastrarLivro(Livro livro) {
@@ -23,7 +25,7 @@ public class Biblioteca {
         return livros;
     }
 
-    public ArrayList<User> getUsuarios() {
+    public static ArrayList<User> getUsuarios() {
         return usuarios;
     }
 

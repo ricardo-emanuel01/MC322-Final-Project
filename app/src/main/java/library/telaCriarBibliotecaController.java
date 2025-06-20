@@ -1,3 +1,5 @@
+package library;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,6 +28,7 @@ public class telaCriarBibliotecaController {
                 alert.setContentText("Digite um nome para a biblioteca.");
                 alert.showAndWait();
             } else {
+                //final Biblioteca biblioteca = new Biblioteca(nomeBiblioteca, ""); // Endereço vazio por enquanto
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("telaLogin.fxml"));
                 Parent root = loader.load();
 
