@@ -85,4 +85,6 @@ public class User {
         this.devolver(emprestimo.objEmprestado().toString());
         this.emprestimos.add(emprestimo);
     }
+
+    public boolean verificaAdmin() {return this.permissoes == Permissoes.ADMIN;}
 }

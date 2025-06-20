@@ -10,6 +10,7 @@ public class Biblioteca {
     private Set<Emprestavel> acervo;
     private Set<User> usuarios;
     private Set<Emprestimo> emprestimos;
+    private User usuarioLogado;
 
 
 
@@ -18,10 +19,10 @@ public class Biblioteca {
      * @param nome o nome escolhido para nossa Biblioteca
      * @param endereco o endereco da mesma Biblioteca
      */
-    private Biblioteca(String nome, String endereco) {
+    private Biblioteca(String nome) {
         this.nome = nome;
-        this.acervo = new HashSet<Emprestavel>();
-        this.usuarios = new HashSet<User>();
+        this.acervo = new HashSet<>();
+        this.usuarios = new HashSet<>();
         this.emprestimos = new HashSet<>();
     }
 
@@ -37,7 +38,7 @@ public class Biblioteca {
      * Adiciona um emprestável ao acervo da Biblioteca
      * @param object o objeto emprestavel a ser adicionado
      */
-    public boolean addEmprestavel(Emprestavel object){
+    public boolean adicionaEmprestavel(Emprestavel object){
         if(object == null || acervo.contains(object)) {
             return false;
         }else {
@@ -50,8 +51,8 @@ public class Biblioteca {
      * @param object o objeto emprestavel a ser removido
      */
     public boolean removeEmprestavel(Emprestavel object){
-        if(object != null){
-            acervo.add(object);
+        if(object != null && acervo.contains(object)){
+            acervo.remove(object);
             return true;
         }else{return false;}
     }
@@ -66,19 +67,20 @@ public class Biblioteca {
      */
     public boolean adicionaEmprestimo(Emprestavel obj, User user){
         if(obj == null || user == null) {   
-            LocalDate dataEmprestimo = LocalDate.now();
-            UUID idUUID = UUID.fromString(obj.getID());
-            emprestimos.add(
-                new Emprestimo(
-                    user.getEmail(),
-                    idUUID,
-                    dataEmprestimo,
-                    dataEmprestimo.plusDays(7),
-                    dataEmprestimo
-            ));
-            return true;    
-        } return false; // talvez seja melhor lançar uma exceção generalizada por exemplo objeto nulo exception
-        // excecoes customizadas sao bons exemplo de boas praticas
+            return false;
+        }
+        LocalDate dataEmprestimo = LocalDate.now();
+        UUID idUUID = UUID.fromString(obj.getID());
+        emprestimos.add(
+            new Emprestimo(
+                user.getEmail(),
+                idUUID,
+                dataEmprestimo,
+                dataEmprestimo.plusDays(7),
+                dataEmprestimo
+            )
+        );
+        return true;
     }
 
     /**
@@ -89,7 +91,9 @@ public class Biblioteca {
         // aqui vamos remover um emprestimo da lista de emprestimos e do usuario também
         if (emprestimos.contains(emprestimo)) {
             String user = emprestimo.usuario();
-            User usuario = FilterCollection.filtrarUser(usuarios, user);
+            ArrayList<User> filtrados = FilterCollection.filtrarUser(this.usuarios, user);
+            if (filtrados.isEmpty()) {return false;}
+            User usuario = filtrados.get(0);
             usuario.devolver(emprestimo.objEmprestado().toString());
             emprestimos.remove(emprestimo);
             return true;
@@ -107,7 +111,9 @@ public class Biblioteca {
 
             // remove antigo emprestimo e adiciona novo
             String user = emprestimo.usuario();
-            User usuario = FilterCollection.filtrarUser(usuarios, user);
+            ArrayList<User> filtrados = FilterCollection.filtrarUser(this.usuarios, user);
+            if (filtrados.isEmpty()) {return false;}
+            User usuario = filtrados.get(0);
             usuario.devolver(emprestimo.objEmprestado().toString());
             emprestimos.remove(emprestimo);
             
@@ -117,6 +123,63 @@ public class Biblioteca {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * Implemntação do registro de um usuário
+     * @param user user que foi construido usando os inputs do usuario (externo)
+     * @return bool caso de certo retorna true caso contrario false
+     */
+    public boolean adicionaUser( User user ){
+        // como discutido acima vou supor que o user foi construido certinho
+        if(user == null){return false;}
+        this.usuarios.add(user);
+        return true;
+    }
+
+    /**
+     * Implemntação da remoção de um usuario por admin
+     * @param emailDoUserARemover email do usuario que vamos remover
+     */
+    public boolean removeUser( String emailDoUserARemover ){
+        ArrayList<User> filtrados = FilterCollection.filtrarUser(this.usuarios, emailDoUserARemover);
+        if (filtrados.isEmpty()) return false;
+        User usuario = filtrados.get(0);
+        if(usuarioLogado.getEmail().equals(emailDoUserARemover)){ // verifica se o proprio usuario que deletar sua conta
+            this.usuarios.remove(usuario);
+            return true;
+        }else if( usuarioLogado.verificaAdmin() == true){ // verifica se admin
+            this.usuarios.remove(usuario);
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Processo de login na biblioteca
+     * @param emailUser supões que para o login ja foi imputado um email verificado
+     * @return bool status de login
+     */
+    public boolean login( String emailUser, String senha){
+        ArrayList<User> filtrados = FilterCollection.filtrarUser(this.usuarios, emailUser);
+        if (filtrados.isEmpty()) return false;
+        User usuario = filtrados.get(0);
+        if (usuario.getSenha().equals(senha) == false) {return false;}
+        this.usuarioLogado = usuario;
+        return true;
+    }
+
+    // logout vai simplesmente settar como nenhum user logado
+    /**
+     * Processo de logout na biblioteca
+     * @return bool status de logout
+     */
+    public boolean logout(){
+        if(this.usuarioLogado == null){return false;}
+        this.usuarioLogado = null;
+        return true;
     }
 
 }
