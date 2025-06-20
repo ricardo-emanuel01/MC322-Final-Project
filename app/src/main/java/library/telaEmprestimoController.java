@@ -1,4 +1,4 @@
-package JavaFX;
+package library;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
