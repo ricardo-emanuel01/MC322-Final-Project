@@ -44,7 +44,7 @@ public class telaCadastroController {
         boolean usuarioComum = ehUsuario.isSelected();
 
         if(funcionario==true && usuarioComum==false){
-            UserDatabase.addUser(new User(user, senha, email, "ADMIN"));
+            Biblioteca.cadastrarUsuario(new User(user, email, senha, "ADMIN"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login");
             alert.setHeaderText(null);
@@ -69,7 +69,7 @@ public class telaCadastroController {
             }
 
         } else if (usuarioComum==true && funcionario==false){
-            UserDatabase.addUser(new User(user, senha, email, "LEITOR"));
+            Biblioteca.cadastrarUsuario(new User(user, email, senha, "LEITOR"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login");
             alert.setHeaderText(null);

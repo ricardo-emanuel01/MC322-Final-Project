@@ -54,9 +54,9 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="228.0" layoutY="127.0" text="user" />
-            <Label layoutX="228.0" layoutY="191.0" text="senha" />
-            <Label layoutX="228.0" layoutY="253.0" text="email" />
+            <Label layoutX="228.0" layoutY="127.0" text="Primeio nome" />
+            <Label layoutX="228.0" layoutY="191.0" text="Senha" />
+            <Label layoutX="228.0" layoutY="253.0" text="Email" />
             <TextField fx:id="userCadastro" layoutX="228.0" layoutY="145.0" />
             <TextField fx:id="senhaCadastro" layoutX="229.0" layoutY="209.0" />
             <TextField fx:id="emailCadastro" layoutX="230.0" layoutY="271.0" />

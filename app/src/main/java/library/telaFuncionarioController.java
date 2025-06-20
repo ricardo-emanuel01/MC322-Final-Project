@@ -1,5 +1,8 @@
 package library;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,22 +15,22 @@ import javafx.scene.control.TextField;
 public class telaFuncionarioController {
 
     @FXML
-    private TextField autorLivro;
+    private TextField tituloLivro;
+
+    @FXML
+    private TextField subtituloLivro;
+
+    @FXML
+    private TextField autoresLivro;
+
+    @FXML
+    private TextField idLivro;
 
     @FXML
     private Button botaoCadastrarLivro;
 
     @FXML
-    private TextField copiasLivro;
-
-    @FXML
-    private TextField edicaoLivro;
-
-    @FXML
     protected Label labelNomeBiblioteca2;
-
-    @FXML
-    private TextField tituloLivro;
 
     @FXML
     private ListView<String> listaLivrosFuncionario;
@@ -35,11 +38,11 @@ public class telaFuncionarioController {
     @FXML
     void cadastrarLivro(ActionEvent event){
         String titulo = tituloLivro.getText();
-        String autor = autorLivro.getText();
-        String edicao = edicaoLivro.getText();
-        String copias = copiasLivro.getText();
+        String subtitulo = subtituloLivro.getText();
+        String autores = autoresLivro.getText();
+        String id = idLivro.getText();
 
-        if(titulo.isEmpty() || autor.isEmpty() || edicao.isEmpty() || copias.isEmpty()){
+        if(titulo.isEmpty() || autores.isEmpty() || subtitulo.isEmpty() || id.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
             alert.setHeaderText(null);
@@ -48,7 +51,9 @@ public class telaFuncionarioController {
         } else {
             // Aqui você pode adicionar o livro ao banco de dados ou lista
             
-            UserDatabase.addLivro(new Livro(titulo, autor, Integer.parseInt(edicao), Integer.parseInt(copias)));
+            List<String> listaAutores = Arrays.stream(autores.split(",")).map(String::trim).toList();
+
+            Biblioteca.cadastrarLivro(new Livro(id, titulo, subtitulo, listaAutores));
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Cadastro de Livro");
@@ -57,12 +62,12 @@ public class telaFuncionarioController {
             alert.showAndWait();
             
             tituloLivro.clear();
-            autorLivro.clear();
-            edicaoLivro.clear();
-            copiasLivro.clear();
+            subtituloLivro.clear();
+            autoresLivro.clear();
+            idLivro.clear();
         }
         
-        listaLivrosFuncionario.setItems(FXCollections.observableArrayList(UserDatabase.getLivros().stream().map(Livro::getTitulo).toList()));
+        listaLivrosFuncionario.setItems(FXCollections.observableArrayList(Biblioteca.getLivros().stream().map(Livro::getTitulo).toList()));
 
     }
 }

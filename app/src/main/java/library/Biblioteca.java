@@ -4,24 +4,24 @@ import java.util.ArrayList;
 
 public class Biblioteca {
     private String nome;
-    private ArrayList<Livro> livros;
+    private static ArrayList<Livro> livros;
     private static ArrayList<User> usuarios;
 
     public Biblioteca(String nome, String endereco) {
         this.nome = nome;
-        this.livros = new ArrayList<>();
+        Biblioteca.livros = new ArrayList<>();
         Biblioteca.usuarios = new ArrayList<>();
     }
 
-    public void cadastrarLivro(Livro livro) {
+    public static void cadastrarLivro(Livro livro) {
         livros.add(livro);
     }
 
-    public void cadastrarUsuario(User usuario) {
+    public static void cadastrarUsuario(User usuario) {
         usuarios.add(usuario);
     }
 
-    public ArrayList<Livro> getLivros() {
+    public static ArrayList<Livro> getLivros() {
         return livros;
     }
 

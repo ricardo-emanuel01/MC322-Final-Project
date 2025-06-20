@@ -63,13 +63,13 @@
                </font>
             </Label>
             <Label layoutX="362.0" layoutY="125.0" text="Título" />
-            <Label layoutX="362.0" layoutY="182.0" text="Autor" />
-            <Label layoutX="362.0" layoutY="296.0" text="Número de Cópias" />
-            <Label layoutX="362.0" layoutY="240.0" text="Edição" />
+            <Label layoutX="362.0" layoutY="182.0" text="Subtítulo" />
+            <Label layoutX="362.0" layoutY="296.0" text="ID" />
+            <Label layoutX="362.0" layoutY="240.0" text="Autor(es)" />
             <TextField fx:id="tituloLivro" layoutX="362.0" layoutY="143.0" prefHeight="26.0" prefWidth="234.0" />
-            <TextField fx:id="autorLivro" layoutX="362.0" layoutY="200.0" prefHeight="26.0" prefWidth="234.0" />
-            <TextField fx:id="edicaoLivro" layoutX="363.0" layoutY="258.0" />
-            <TextField fx:id="copiasLivro" layoutX="363.0" layoutY="314.0" />
+            <TextField fx:id="subtituloLivro" layoutX="362.0" layoutY="200.0" prefHeight="26.0" prefWidth="234.0" />
+            <TextField fx:id="autoresLivro" layoutX="363.0" layoutY="258.0" />
+            <TextField fx:id="idLivro" layoutX="363.0" layoutY="314.0" />
             <ListView fx:id="listaLivrosFuncionario" layoutX="58.0" layoutY="126.0" prefHeight="200.0" prefWidth="200.0" />
             <Label layoutX="114.0" layoutY="99.0" text="Lista de Livros">
                <font>
