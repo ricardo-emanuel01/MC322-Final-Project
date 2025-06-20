@@ -1,15 +1,14 @@
 package library;
 
-import java.util.Set;
+import java.util.ArrayList;
 /**
  * Interface Filter (Criteria Pattern)
  * @param <T> o tipo de objeto a ser filtrado
+ * @param criteria string que contem o tipo de criterio usado (email, id e etc)
+ * @return Array com os objetos filtrados
  */
+
 public interface Filter<T> {
-    /**
-     * @param item o objeto a ser testado
-     * @return T o objeto encontrado ou seja pode ser T ou null
-     */
-    T aplica(Set<T> item, String criteria);
+    ArrayList<T> aplica(Set<T> item, String criteria);
 
 }
