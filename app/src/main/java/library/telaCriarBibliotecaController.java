@@ -28,13 +28,15 @@ public class telaCriarBibliotecaController {
                 alert.setContentText("Digite um nome para a biblioteca.");
                 alert.showAndWait();
             } else {
+
+                App.getBiblioteca().setNome(nomeBiblioteca); // Define o nome da biblioteca na instância única
                 //final Biblioteca biblioteca = new Biblioteca(nomeBiblioteca, ""); // Endereço vazio por enquanto
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("telaLogin.fxml"));
                 Parent root = loader.load();
 
                 // Pegar o controller da tela de login e passar o nome
                 telaLoginController loginController = loader.getController();
-                loginController.setNomeBiblioteca(nomeBiblioteca);
+                loginController.setNomeBiblioteca(App.getBiblioteca().getNome());
 
                 Stage stage = App.getMainStage();
                 stage.setScene(new Scene(root));

@@ -41,7 +41,7 @@ public class telaLoginController {
 
         boolean loginOK = false;
 
-        for(User user : Biblioteca.getUsuarios()){
+        for(User user : App.getBiblioteca().getUsuarios()) {
             if(user.getPrimeiroNome().equals(usuario) && user.getSenha().equals(senha) && loginOK == false){
                 loginOK = true;
                 System.out.println("Login efetuado com sucesso!");
@@ -58,7 +58,7 @@ public class telaLoginController {
 
                         // Pegar o controller da tela de funcionario e passar o nome
                         telaFuncionarioController funcionarioController = loader.getController();
-                        funcionarioController.labelNomeBiblioteca2.setText(labelNomeBiblioteca.getText());
+                        funcionarioController.labelNomeBiblioteca2.setText(App.getBiblioteca().getNome());
 
                         Stage stage = App.getMainStage();
                         stage.setScene(new Scene(root));
@@ -73,7 +73,7 @@ public class telaLoginController {
 
                         // Pegar o controller da tela de usuario e passar o nome
                         telaUsuarioController usuarioController = loader.getController();
-                        usuarioController.labelNomeBiblioteca3.setText(labelNomeBiblioteca.getText());
+                        usuarioController.labelNomeBiblioteca3.setText(App.getBiblioteca().getNome());
                         Stage stage = App.getMainStage();
                         stage.setScene(new Scene(root));
                         stage.setTitle("Tela Usuario");
@@ -101,7 +101,7 @@ public class telaLoginController {
 
             // Pegar o controller da tela de cadastro e passar o nome
             telaCadastroController cadastroController = loader.getController();
-            cadastroController.labelNomeBiblioteca1.setText(labelNomeBiblioteca.getText());
+            cadastroController.labelNomeBiblioteca1.setText(App.getBiblioteca().getNome());
 
             Stage stage = App.getMainStage();
             stage.setScene(new Scene(root));
