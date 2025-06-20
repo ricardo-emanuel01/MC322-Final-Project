@@ -2,6 +2,7 @@ package library;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -34,6 +35,28 @@ public class telaEmprestimoController {
         biblioteca.add("Dom Casmurro");
         biblioteca.add("Harry Potter");
         biblioteca.add("O Pequeno Príncipe");
+    }
+
+    @FXML
+    private Button botaoVoltar;
+
+    @FXML
+    void voltarParaUsuario(ActionEvent event) {
+        try {
+            // Fecha a janela atual
+            botaoVoltar.getScene().getWindow().hide();
+
+            // Carrega a tela de usuário
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/library/telaUsuario.fxml")); 
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Tela do Usuário");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

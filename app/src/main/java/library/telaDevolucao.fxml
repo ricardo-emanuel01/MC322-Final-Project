@@ -20,6 +20,7 @@
             <TextField fx:id="campoObra" layoutX="227.0" layoutY="123.0" />
             <Label layoutX="227.0" layoutY="179.0" text="Qual a data de empréstimo?" />
             <TextField fx:id="campoData" layoutX="227.0" layoutY="217.0" />
+            <Button fx:id="botaoVoltar" layoutX="281.0" layoutY="320.0" text="Voltar" onAction="#voltarParaUsuario" />
             <Button fx:id="botaoDevolver" layoutX="281.0" layoutY="279.0" mnemonicParsing="false" onAction="#fazerDevolucao" text="Devolver" />
             <Label fx:id="labelMensagem" layoutX="227.0" layoutY="336.0" text="--" />
       </children>
