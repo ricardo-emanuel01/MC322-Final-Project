@@ -1,3 +1,5 @@
+package library;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +44,7 @@ public class telaCadastroController {
         boolean usuarioComum = ehUsuario.isSelected();
 
         if(funcionario==true && usuarioComum==false){
-            UserDatabase.addUser(new User(user, senha, email, 1));
+            UserDatabase.addUser(new User(user, senha, email, "ADMIN"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login");
             alert.setHeaderText(null);
@@ -67,7 +69,7 @@ public class telaCadastroController {
             }
 
         } else if (usuarioComum==true && funcionario==false){
-            UserDatabase.addUser(new User(user, senha, email, 0));
+            UserDatabase.addUser(new User(user, senha, email, "LEITOR"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login");
             alert.setHeaderText(null);
