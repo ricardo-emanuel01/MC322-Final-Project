@@ -3,6 +3,7 @@ package library;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -49,6 +50,28 @@ public class telaBuscaController {
             listaResultados.setItems(FXCollections.observableArrayList("Nenhum livro encontrado."));
         } else {
             listaResultados.setItems(FXCollections.observableArrayList(resultados));
+        }
+    }
+
+    @FXML
+    private Button botaoVoltar;
+
+    @FXML
+    void voltarParaUsuario(ActionEvent event) {
+        try {
+            // Fecha a janela atual
+            botaoVoltar.getScene().getWindow().hide();
+
+            // Carrega a tela de usuário
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/library/telaUsuario.fxml")); 
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Tela do Usuário");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

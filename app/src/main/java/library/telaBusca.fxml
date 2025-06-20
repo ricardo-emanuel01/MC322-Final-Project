@@ -19,6 +19,7 @@
             <ListView fx:id="listaResultados" layoutX="97.0" layoutY="119.0" prefHeight="200.0" prefWidth="200.0" />
             <TextField fx:id="campoBusca" layoutX="349.0" layoutY="139.0" />
             <Label layoutX="349.0" layoutY="109.0" text="Busca de Objetos" />
+            <Button fx:id="botaoVoltar" layoutX="410.0" layoutY="320.0" text="Voltar" onAction="#voltarParaUsuario" />
             <Button fx:id="botaoBuscar" layoutX="410.0" layoutY="185.0" mnemonicParsing="false" onAction="#fazerBusca" text="Buscar" />
       </children>
     </AnchorPane>
