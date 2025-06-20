@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.telaBuscaController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Label layoutX="182.0" layoutY="42.0" text="Tela de Busca de Objetos">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <ListView fx:id="listaResultados" layoutX="97.0" layoutY="119.0" prefHeight="200.0" prefWidth="200.0" />
+            <TextField fx:id="campoBusca" layoutX="349.0" layoutY="139.0" />
+            <Label layoutX="349.0" layoutY="109.0" text="Busca de Objetos" />
+            <Button fx:id="botaoVoltar" layoutX="410.0" layoutY="320.0" text="Voltar" onAction="#voltarParaUsuario" />
+            <Button fx:id="botaoBuscar" layoutX="410.0" layoutY="185.0" mnemonicParsing="false" onAction="#fazerBusca" text="Buscar" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
