@@ -9,6 +9,12 @@ import javafx.stage.Stage;
 class App extends Application{
 
     private static Stage mainStage;
+    private static Biblioteca biblioteca;  //Instancia unica da Biblioteca
+
+    public static Biblioteca getBiblioteca() {
+        return biblioteca;
+    }
+
     public static void main(String[] args) throws Exception {
         launch(args);
     }
@@ -20,6 +26,7 @@ class App extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         mainStage = primaryStage;
+        biblioteca = new Biblioteca("");
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("telaCriarBiblioteca.fxml"));
         Parent root = fxmlLoader.load();

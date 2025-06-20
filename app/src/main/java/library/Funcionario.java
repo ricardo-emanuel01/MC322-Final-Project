@@ -2,8 +2,8 @@ package library;
 
 public class Funcionario extends User implements IFuncionario {
 
-    public Funcionario(String primeiroNome, String email, String cargo, String setor) {
-        super(primeiroNome, codigo);
+    public Funcionario(String primeiroNome, String email, String senha, String cargo, String setor) {
+        super(primeiroNome, email, senha, "ADMIN");
     }
 
     public void cadastrarLivro(Biblioteca biblioteca, Livro livro){
