@@ -62,15 +62,18 @@ public class Biblioteca {
     /**
      * Cria um record emprestimo que é atribuido a um object de classe emprestavel
      * e a um certo tipo de usuario ja logado
-     * @param user o usuario que vai emprestar o livro
      * @param obj o objeto de tipo Emprestavel a ser emprestado
      */
-    public boolean adicionaEmprestimo(Emprestavel obj, User user){
-        if(obj == null || user == null) {   
-            return false;
-        }
+    public boolean adicionaEmprestimo(Emprestavel obj){
+        if(obj == null) { return false; }
+        if(usuarioLogado == null) {return false; }
+
+        // verificando se o usuario alugado esta alugando o livro para ele mesmo
+        // admins nao podem alugar por outras pessoas
+
         LocalDate dataEmprestimo = LocalDate.now();
         UUID idUUID = UUID.fromString(obj.getID());
+        if(usuarioLogado.getEmail.)
         emprestimos.add(
             new Emprestimo(
                 user.getEmail(),
@@ -110,7 +113,7 @@ public class Biblioteca {
             Emprestimo novoEmprestimo = Emprestimo.renovacao(emprestimo, dataRenovacao);
 
             // remove antigo emprestimo e adiciona novo
-            String user = emprestimo.usuario();
+            String user = novoEmprestimo.usuario();
             ArrayList<User> filtrados = FilterCollection.filtrarUser(this.usuarios, user);
             if (filtrados.isEmpty()) {return false;}
             User usuario = filtrados.get(0);
