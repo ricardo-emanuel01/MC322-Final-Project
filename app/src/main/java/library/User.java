@@ -30,6 +30,7 @@ public class User {
     public String getEmail() {return this.email;}
     public String getSenha() {return this.senhaHashed;}
     public String getPermissoes() {return this.permissoes.toString();}
+    public List<Emprestimo> getEmprestimos() {return this.emprestimos;}
 
 
     /**
@@ -64,7 +65,7 @@ public class User {
      */
     public boolean devolver(String IDObjeto) {
         for (int i = 0; i < this.emprestimos.size(); ++i) {
-            String objAtual = this.emprestimos.get(i).objEmprestado().toString();
+            String objAtual = this.emprestimos.get(i).objEmprestado();
             if (IDObjeto.equals(objAtual)) {
                 this.emprestimos.remove(i);
                 return true;
@@ -82,9 +83,7 @@ public class User {
     public void renovar(Emprestimo emprestimo) {
         // TODO: Renovações apenas no dia da devolução
         // Lógica do todo acima deve estar na Biblioteca
-        this.devolver(emprestimo.objEmprestado().toString());
+        this.devolver(emprestimo.objEmprestado());
         this.emprestimos.add(emprestimo);
     }
-
-    public boolean verificaAdmin() {return this.permissoes == Permissoes.ADMIN;}
 }
