@@ -36,6 +36,9 @@ public class telaCadastroController {
     private TextField userCadastro;
 
     @FXML
+    private Button botaoSair;
+
+    @FXML
     void fazerCadastro(ActionEvent event){
         String user = userCadastro.getText();
         String email = emailCadastro.getText();
@@ -44,7 +47,7 @@ public class telaCadastroController {
         boolean usuarioComum = ehUsuario.isSelected();
 
         if(funcionario==true && usuarioComum==false){
-            Biblioteca.cadastrarUsuario(new User(user, email, senha, "ADMIN"));
+            App.getBiblioteca().cadastrarUsuario(new User(user, email, senha, "ADMIN"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login");
             alert.setHeaderText(null);
@@ -69,7 +72,7 @@ public class telaCadastroController {
             }
 
         } else if (usuarioComum==true && funcionario==false){
-            Biblioteca.cadastrarUsuario(new User(user, email, senha, "LEITOR"));
+            App.getBiblioteca().cadastrarUsuario(new User(user, email, senha, "LEITOR"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login");
             alert.setHeaderText(null);
@@ -108,6 +111,25 @@ public class telaCadastroController {
             alert.setHeaderText(null);
             alert.setContentText("Nenhum tipo de usuario selecionado para cadastro.");
             alert.showAndWait();
+        }
+    }
+    
+    @FXML
+    void sair(ActionEvent event) {
+        // Implementar a lógica para sair da tela de usuário
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("telaLogin.fxml"));
+            Parent root = loader.load();
+
+            // Pegar o controller da tela de funcionario e passar o nome
+            telaLoginController loginController = loader.getController();
+            loginController.labelNomeBiblioteca.setText(App.getBiblioteca().getNome());
+
+            Stage stage = App.getMainStage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Tela Login");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

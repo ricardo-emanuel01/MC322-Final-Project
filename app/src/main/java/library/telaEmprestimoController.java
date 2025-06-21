@@ -26,6 +26,15 @@ public class telaEmprestimoController {
     @FXML
     private Label labelMensagem;
 
+    @FXML
+    protected Label labelNomeBiblioteca3;
+
+    @FXML
+    private Button botaoSair;
+    
+    @FXML
+    private Button botaoVoltar;
+
     // Lista de obras cadastradas na biblioteca
     private List<String> biblioteca = new ArrayList<>();
 
@@ -41,9 +50,6 @@ public class telaEmprestimoController {
     }
 
     @FXML
-    private Button botaoVoltar;
-
-    @FXML
     void voltarParaUsuario(ActionEvent event) {
         try {
             // Fecha a janela atual
@@ -52,9 +58,14 @@ public class telaEmprestimoController {
             // Carrega a tela de usuário
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/library/telaUsuario.fxml")); 
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Tela do Usuário");
+            
+            // Pegar o controller da tela de funcionario e passar o nome
+            telaUsuarioController usuarioController = loader.getController();
+            usuarioController.labelNomeBiblioteca3.setText(App.getBiblioteca().getNome());
+
+            Stage stage = App.getMainStage();
             stage.setScene(new Scene(root));
+            stage.setTitle("Tela do Usuário");
             stage.show();
 
         } catch (Exception e) {

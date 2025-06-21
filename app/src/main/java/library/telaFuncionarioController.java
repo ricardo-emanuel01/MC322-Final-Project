@@ -6,11 +6,15 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class telaFuncionarioController {
 
@@ -36,6 +40,9 @@ public class telaFuncionarioController {
     private ListView<String> listaLivrosFuncionario;
 
     @FXML
+    private Button botaoSair;
+
+    @FXML
     void cadastrarLivro(ActionEvent event){
         String titulo = tituloLivro.getText();
         String subtitulo = subtituloLivro.getText();
@@ -53,7 +60,7 @@ public class telaFuncionarioController {
             
             List<String> listaAutores = Arrays.stream(autores.split(",")).map(String::trim).toList();
 
-            Biblioteca.cadastrarLivro(new Livro(id, titulo, subtitulo, listaAutores));
+            App.getBiblioteca().cadastrarLivro(new Livro(id, titulo, subtitulo, listaAutores));
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Cadastro de Livro");
@@ -67,7 +74,25 @@ public class telaFuncionarioController {
             idLivro.clear();
         }
         
-        listaLivrosFuncionario.setItems(FXCollections.observableArrayList(Biblioteca.getLivros().stream().map(Livro::getTitulo).toList()));
+        listaLivrosFuncionario.setItems(FXCollections.observableArrayList(App.getBiblioteca().getLivros().stream().map(Livro::getTitulo).toList()));
+    }
 
+    @FXML
+    void sair(ActionEvent event) {
+        // Implementar a lógica para sair da tela de usuário
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("telaLogin.fxml"));
+            Parent root = loader.load();
+
+            // Pegar o controller da tela de funcionario e passar o nome
+            telaLoginController loginController = loader.getController();
+            loginController.labelNomeBiblioteca.setText(App.getBiblioteca().getNome());
+
+            Stage stage = App.getMainStage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Tela Login");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

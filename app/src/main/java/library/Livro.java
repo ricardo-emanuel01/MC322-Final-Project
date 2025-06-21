@@ -30,4 +30,7 @@ public class Livro extends Emprestavel {
             IDUser
         );
     }
+
+    //metodos acessores
+    
 }
