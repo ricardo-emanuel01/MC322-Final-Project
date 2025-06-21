@@ -9,4 +9,5 @@ import library.App;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AppTest {}
+class AppTest {
+}
