@@ -9,26 +9,28 @@ import java.util.TreeSet;
 import java.util.Set;
 
 
-public class UserRepository {
+public class Repository<T> {
     private final File file;
     private final Gson gson;
 
-    public UserRepository(File file) {
+    public Repository(File file) {
         this.file = file;
         this.gson = GsonFactory.getGson();
     }
 
-    public void saveUsers(Set<User> users) throws IOException {
+
+    public void save(Set<T> items) throws IOException {
         try (Writer writer = new FileWriter(this.file)) {
-            gson.toJson(users, writer);
+            gson.toJson(items, writer);
         }
     }
 
-    public Set<User> loadUsers() throws IOException {
+
+    public Set<T> load() throws IOException {
         if (!this.file.exists()) return new TreeSet<>();
 
         try (Reader reader = new FileReader(this.file)) {
-            Type setType = new TypeToken<Set<User>>() {}.getType();
+            Type setType = new TypeToken<Set<T>>() {}.getType();
             return gson.fromJson(reader, setType);
         }
     }
