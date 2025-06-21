@@ -17,6 +17,10 @@ public class User {
         String senha,
         String permissoes
     ) {
+        if (!isValidEmail(email)) {
+            throw new IllegalArgumentException("Invalid email: " + email);
+        }
+
         this.primeiroNome = primeiroNome;
         this.email = email;
         this.senhaHashed = senha;
@@ -85,5 +89,11 @@ public class User {
         // Lógica do todo acima deve estar na Biblioteca
         this.devolver(emprestimo.objEmprestado());
         this.emprestimos.add(emprestimo);
+    }
+
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email != null && email.matches(emailRegex);
     }
 }
