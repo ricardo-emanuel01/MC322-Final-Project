@@ -1,7 +1,7 @@
 package library;
 
 import java.time.LocalDate;
-import java.util.UUID;
+
 
 /**
  * Record utilizado para representar um emprestimo
@@ -13,23 +13,14 @@ import java.util.UUID;
  */
 public record Emprestimo(
     String usuario,
-    UUID objEmprestado,
+    String objEmprestado,
     LocalDate dataEmprestimo,
     LocalDate dataPrevisaoDevolucao,
     LocalDate dataUltimaRenovacao
-) 
-{ 
-    public static Emprestimo renovacao(Emprestimo emprestimo, LocalDate dataRenovacao) {
-        return new Emprestimo(
-            emprestimo.usuario(),
-            emprestimo.objEmprestado(),
-            emprestimo.dataEmprestimo(),
-            dataRenovacao.plusDays(7), 
-            dataRenovacao
-        );
-    }
+) implements Comparable<Emprestimo> {
 
-    // getter para o filtro de emprestimos
-    public String getUsuario() {return usuario;}
-    public UUID getObjEmprestado() {return objEmprestado;}
+    @Override
+    public int compareTo(Emprestimo outro) {
+        return this.objEmprestado().compareTo(outro.objEmprestado());
+    }
 }
