@@ -17,6 +17,10 @@ public class User {
         String senha,
         String permissoes
     ) {
+        if (!isValidEmail(email)) {
+            throw new IllegalArgumentException("Invalid email: " + email);
+        }
+
         this.primeiroNome = primeiroNome;
         this.email = email;
         this.senhaHashed = senha;
@@ -30,6 +34,22 @@ public class User {
     public String getEmail() {return this.email;}
     public String getSenha() {return this.senhaHashed;}
     public String getPermissoes() {return this.permissoes.toString();}
+    public List<Emprestimo> getEmprestimos() {return this.emprestimos;}
+
+
+    /**
+     * Implementação do método de filtro para o padrão Criteria
+     * @param item o objeto a ser testado
+     * @return User o objeto encontrado ou seja pode ser User ou null
+     */
+    public static User aplica(User item) {
+        if (item == null) {
+            return null;
+        }
+        // Aqui poderia ser implementada uma lógica de filtro mais complexa
+        return item;
+    }
+
 
 
     /**
@@ -49,7 +69,7 @@ public class User {
      */
     public boolean devolver(String IDObjeto) {
         for (int i = 0; i < this.emprestimos.size(); ++i) {
-            String objAtual = this.emprestimos.get(i).objEmprestado().toString();
+            String objAtual = this.emprestimos.get(i).objEmprestado();
             if (IDObjeto.equals(objAtual)) {
                 this.emprestimos.remove(i);
                 return true;
@@ -67,7 +87,13 @@ public class User {
     public void renovar(Emprestimo emprestimo) {
         // TODO: Renovações apenas no dia da devolução
         // Lógica do todo acima deve estar na Biblioteca
-        this.devolver(emprestimo.objEmprestado().toString());
+        this.devolver(emprestimo.objEmprestado());
         this.emprestimos.add(emprestimo);
+    }
+
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email != null && email.matches(emailRegex);
     }
 }
