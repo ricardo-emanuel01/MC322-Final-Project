@@ -68,15 +68,11 @@ public class Biblioteca {
         if(obj == null) { return false; }
         if(usuarioLogado == null) {return false; }
 
-        // verificando se o usuario alugado esta alugando o livro para ele mesmo
-        // admins nao podem alugar por outras pessoas
-
         LocalDate dataEmprestimo = LocalDate.now();
         UUID idUUID = UUID.fromString(obj.getID());
-        if(usuarioLogado.getEmail.)
         emprestimos.add(
             new Emprestimo(
-                user.getEmail(),
+                usuarioLogado.getEmail(),
                 idUUID,
                 dataEmprestimo,
                 dataEmprestimo.plusDays(7),
