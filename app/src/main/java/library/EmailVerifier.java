@@ -1,18 +1,10 @@
 package library;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
-public class EmailVerifier{
-
-    private static final String regexGmail = "^[\\w.+-]+@gmail\\.com$";
-    private static final Pattern padraoGmail = Pattern.compile(regexGmail);
+public class EmailVerifier {
+    private static final String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
     public static boolean emailValido(String email) {
-
-        if (email == null){ return false}
-        Matcher matcher = padraoGmail.matcher(email);
-        return matcher.matches();
+        return email != null && email.matches(regexEmail);
     }
-
 }
