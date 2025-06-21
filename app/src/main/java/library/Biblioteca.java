@@ -110,6 +110,8 @@ public class Biblioteca {
      */
     public boolean renovaEmprestimo(Emprestimo emprestimo, LocalDate dataRenovacao) {
         if (emprestimos.contains(emprestimo)) {
+            if(this.usuarioLogado == null){ return false; }
+            if(!emprestimo.usuario().equals(this.usuarioLogado.getEmail())){ return false; }
             Emprestimo novoEmprestimo = Emprestimo.renovacao(emprestimo, dataRenovacao);
 
             // remove antigo emprestimo e adiciona novo
@@ -119,7 +121,7 @@ public class Biblioteca {
             User usuario = filtrados.get(0);
             usuario.devolver(emprestimo.objEmprestado().toString());
             emprestimos.remove(emprestimo);
-            
+
             // adiciona novo emprestimo
             emprestimos.add(novoEmprestimo);
             usuario.emprestar(novoEmprestimo);
