@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.telaDevolucaoController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="telaDevolucaoController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label layoutX="219.0" layoutY="29.0" text="Tela de Devolução">
+            <Label layoutX="203.0" layoutY="69.0" text="Tela de Devolução">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="220.0" layoutY="91.0" text="Qual obra você tem em mãos?" />
-            <TextField fx:id="campoObra" layoutX="227.0" layoutY="123.0" />
-            <Label layoutX="227.0" layoutY="179.0" text="Qual a data de empréstimo?" />
+            <Label layoutX="219.0" layoutY="115.0" text="Qual obra você tem em mãos?" />
+            <TextField fx:id="campoObra" layoutX="226.0" layoutY="147.0" />
+            <Label layoutX="224.0" layoutY="191.0" text="Qual a data de empréstimo?" />
             <TextField fx:id="campoData" layoutX="227.0" layoutY="217.0" />
-            <Button fx:id="botaoVoltar" layoutX="281.0" layoutY="320.0" text="Voltar" onAction="#voltarParaUsuario" />
+            <Button fx:id="botaoVoltar" layoutX="281.0" layoutY="320.0" onAction="#voltarParaUsuario" text="Voltar" />
             <Button fx:id="botaoDevolver" layoutX="281.0" layoutY="279.0" mnemonicParsing="false" onAction="#fazerDevolucao" text="Devolver" />
             <Label fx:id="labelMensagem" layoutX="227.0" layoutY="336.0" text="--" />
+            <Label fx:id="labelNomeBiblioteca3" layoutX="208.0" layoutY="14.0" text="labelNomeBiblioteca3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
       </children>
     </AnchorPane>
   </children>

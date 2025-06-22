@@ -44,6 +44,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Button fx:id="botaoSair" layoutX="598.0" layoutY="43.0" mnemonicParsing="false" onAction="#sair" text="Sair" />
          </children>
     </AnchorPane>
   </children>

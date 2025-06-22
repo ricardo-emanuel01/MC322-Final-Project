@@ -30,6 +30,15 @@ public class telaDevolucaoController {
     @FXML
     private Label labelMensagem;
 
+    @FXML
+    protected Label labelNomeBiblioteca3;
+
+    @FXML
+    private Button botaoVoltar;
+
+    @FXML
+    private Button botaoSair;
+
     private List<String> biblioteca = new ArrayList<>();
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -75,9 +84,6 @@ public class telaDevolucaoController {
     }
 
     @FXML
-    private Button botaoVoltar;
-
-    @FXML
     void voltarParaUsuario(ActionEvent event) {
         try {
             // Fecha a janela atual
@@ -86,9 +92,14 @@ public class telaDevolucaoController {
             // Carrega a tela de usuário
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/library/telaUsuario.fxml")); 
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Tela do Usuário");
+
+            // Pegar o controller da tela de funcionario e passar o nome
+            telaUsuarioController usuarioController = loader.getController();
+            usuarioController.labelNomeBiblioteca3.setText(App.getBiblioteca().getNome());
+
+            Stage stage = App.getMainStage();
             stage.setScene(new Scene(root));
+            stage.setTitle("Tela do Usuário");
             stage.show();
 
         } catch (Exception e) {

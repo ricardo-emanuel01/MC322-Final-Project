@@ -31,6 +31,7 @@
             <CheckBox fx:id="ehUsuario" layoutX="230.0" layoutY="308.0" mnemonicParsing="false" text="Usuário" />
             <CheckBox fx:id="ehFuncionario" layoutX="320.0" layoutY="308.0" mnemonicParsing="false" text="Funcionário" />
             <Button fx:id="botaoCadastrar" layoutX="250.0" layoutY="343.0" mnemonicParsing="false" onAction="#fazerCadastro" prefHeight="26.0" prefWidth="109.0" text="Cadastrar" />
+            <Button fx:id="botaoSair" layoutX="590.0" layoutY="44.0" mnemonicParsing="false" onAction="#sair" text="Sair" />
          </children>
     </AnchorPane>
   </children>
