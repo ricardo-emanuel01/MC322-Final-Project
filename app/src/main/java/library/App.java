@@ -26,7 +26,7 @@ public class App extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         mainStage = primaryStage;
-        biblioteca = new Biblioteca("");
+        // biblioteca = new Biblioteca("");
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaCriarBiblioteca.fxml"));
         Parent root = fxmlLoader.load();

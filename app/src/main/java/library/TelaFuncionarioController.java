@@ -60,7 +60,7 @@ public class TelaFuncionarioController {
             
             List<String> listaAutores = Arrays.stream(autores.split(",")).map(String::trim).toList();
 
-            App.getBiblioteca().cadastrarLivro(new Livro(id, titulo, subtitulo, listaAutores));
+            App.getBiblioteca().adicionaEmprestavel(new Livro(id, titulo, subtitulo, listaAutores));
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Cadastro de Livro");
@@ -73,8 +73,19 @@ public class TelaFuncionarioController {
             autoresLivro.clear();
             idLivro.clear();
         }
-        
-        listaLivrosFuncionario.setItems(FXCollections.observableArrayList(App.getBiblioteca().getLivros().stream().map(Livro::getTitulo).toList()));
+
+listaLivrosFuncionario.setItems(
+    FXCollections.observableArrayList(
+        App.getBiblioteca().getAcervo()
+            .values()
+            .stream()
+            .filter(e -> e instanceof Livro)
+            .map(e -> ((Livro) e).getTitulo())
+            .toList()
+    )
+);
+
+
     }
 
     @FXML

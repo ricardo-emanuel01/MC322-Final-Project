@@ -38,6 +38,9 @@ public class Biblioteca {
         return this.emprestimos;
     }
 
+    // setter
+    protected void setNome(String nome){this.nome = nome;}
+
 
     /**
      * Adiciona um emprestável ao acervo da Biblioteca

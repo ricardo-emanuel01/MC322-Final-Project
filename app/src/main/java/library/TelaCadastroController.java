@@ -47,7 +47,7 @@ public class TelaCadastroController {
         boolean usuarioComum = ehUsuario.isSelected();
 
         if(funcionario==true && usuarioComum==false){
-            App.getBiblioteca().cadastrarUsuario(new User(user, email, senha, "ADMIN"));
+            App.getBiblioteca().adicionaUser(new User(user, email, senha, "ADMIN"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login");
             alert.setHeaderText(null);
@@ -72,7 +72,7 @@ public class TelaCadastroController {
             }
 
         } else if (usuarioComum==true && funcionario==false){
-            App.getBiblioteca().cadastrarUsuario(new User(user, email, senha, "LEITOR"));
+            App.getBiblioteca().adicionaUser(new User(user, email, senha, "LEITOR"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login");
             alert.setHeaderText(null);

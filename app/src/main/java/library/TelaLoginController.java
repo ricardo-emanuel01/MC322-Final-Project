@@ -41,7 +41,7 @@ public class TelaLoginController {
 
         boolean loginOK = false;
 
-        for(User user : App.getBiblioteca().getUsuarios()) {
+        for(User user : App.getBiblioteca().getUsuarios().values()) {
             if(user.getPrimeiroNome().equals(usuario) && user.getSenha().equals(senha) && loginOK == false){
                 loginOK = true;
                 System.out.println("Login efetuado com sucesso!");
