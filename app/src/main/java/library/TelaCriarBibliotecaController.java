@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.Modality;
 
 public class TelaCriarBibliotecaController {
 
@@ -26,7 +27,9 @@ public class TelaCriarBibliotecaController {
                 alert.setTitle("Erro");
                 alert.setHeaderText(null);
                 alert.setContentText("Digite um nome para a biblioteca.");
+
                 alert.showAndWait();
+
             } else {
 
                 App.getBiblioteca().setNome(nomeBiblioteca); // Define o nome da biblioteca na instância única

@@ -30,11 +30,12 @@ public class App extends Application{
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaCriarBiblioteca.fxml"));
         Parent root = fxmlLoader.load();
-        Scene tela = new Scene(root);
-
+        Scene tela = new Scene(root, 1000, 650);
         primaryStage.setTitle("Biblioteca");
         primaryStage.setScene(tela);
-        primaryStage.setMaximized(true);
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(650);
+        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 }
