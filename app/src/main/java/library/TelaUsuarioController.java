@@ -81,7 +81,8 @@ public class TelaUsuarioController {
     @FXML
     void sair(ActionEvent event) {
         // Implementar a lógica para sair da tela de usuário
-        try{
+        try {
+            App.getBiblioteca().logout();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("telaLogin.fxml"));
             Parent root = loader.load();
 
@@ -100,7 +101,7 @@ public class TelaUsuarioController {
     @FXML
     void telaEmprestimos(ActionEvent event) {
         // Implementar a lógica para sair da tela de usuário
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("telaEmprestimo.fxml"));
             Parent root = loader.load();
 
@@ -119,7 +120,7 @@ public class TelaUsuarioController {
     @FXML
     void telaDevolucoes(ActionEvent event) {
         // Implementar a lógica para sair da tela de usuário
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("telaDevolucao.fxml"));
             Parent root = loader.load();
 
@@ -138,7 +139,7 @@ public class TelaUsuarioController {
     @FXML
     void telaRenovacoes(ActionEvent event) {
         // Implementar a lógica para sair da tela de usuário
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("telaRenovacao.fxml"));
             Parent root = loader.load();
 
