@@ -14,8 +14,8 @@ public class EmprestavelFilter implements Filter<Emprestavel> {
      * @return Array com itens filtrados
      */
     @Override
-    public List<Emprestavel> aplica(Set<Emprestavel> items, String criteria) {
-        List<Emprestavel> emprestavelArray = new ArrayList<>();
+    public ArrayList<Emprestavel> aplica(Set<Emprestavel> items, String criteria) {
+        ArrayList<Emprestavel> emprestavelArray = new ArrayList<>();
         for (Emprestavel emprestavel : items) {
             if (emprestavel.getID().equals(criteria)) {
                 emprestavelArray.add(emprestavel);

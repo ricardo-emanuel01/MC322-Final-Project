@@ -1,6 +1,6 @@
 package library;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -11,6 +11,6 @@ import java.util.Set;
  * @return Array com os objetos filtrados
  */
 public interface Filter<T> {
-    List<T> aplica(Set<T> item, String criteria);
+    ArrayList<T> aplica(Set<T> item, String criteria);
 
 }

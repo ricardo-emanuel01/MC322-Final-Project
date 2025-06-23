@@ -15,7 +15,7 @@ public class EmprestimoFilter implements Filter<Emprestimo> {
     public ArrayList<Emprestimo> aplica(Set<Emprestimo> items, String criteria) {
         ArrayList<Emprestimo> emprestimoArray = new ArrayList<>();
         for (Emprestimo emprestimo : items) {
-            if (emprestimo.getObjEmprestado().toString().equals(criteria)) {
+            if (emprestimo.objEmprestado().equals(criteria)) {
                 emprestimoArray.add(emprestimo);
             }
         }
