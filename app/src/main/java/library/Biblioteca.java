@@ -20,7 +20,7 @@ public class Biblioteca {
      * @param nome o nome escolhido para nossa Biblioteca
      * @param endereco o endereco da mesma Biblioteca
      */
-    private Biblioteca(String nome, int diasPorEmprestimo) {
+    public Biblioteca(String nome, int diasPorEmprestimo) {
         this.nome = nome;
         this.acervo = new TreeMap<>();
         this.usuarios = new TreeMap<>();
@@ -37,6 +37,7 @@ public class Biblioteca {
     protected Map<String, Emprestimo> getEmprestimos() {
         return this.emprestimos;
     }
+    protected User getUsuarioLogado() { return this.usuarioLogado; }
 
     // setter
     protected void setNome(String nome){this.nome = nome;}
