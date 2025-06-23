@@ -26,9 +26,9 @@ public class App extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         mainStage = primaryStage;
-        // biblioteca = new Biblioteca("");
+        biblioteca = new Biblioteca("", 7);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaCriarBiblioteca.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("telaCriarBiblioteca.fxml"));
         Parent root = fxmlLoader.load();
         Scene tela = new Scene(root, 1000, 650);
         primaryStage.setTitle("Biblioteca");
