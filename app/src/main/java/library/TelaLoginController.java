@@ -52,7 +52,7 @@ public class TelaLoginController {
             alert.setContentText("Login efetuado com sucesso!");
             alert.showAndWait();
 
-            if (App.getBiblioteca().getUsuarioLogado().getPermissoes().equals("ADMIN")){
+            if (App.getBiblioteca().getUsuarioLogado().getPermissoes().equals("admin")) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("telaFuncionario.fxml"));
                     Parent root = loader.load();
@@ -67,7 +67,7 @@ public class TelaLoginController {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
+            } else if (App.getBiblioteca().getUsuarioLogado().getPermissoes().equals("leitor")) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("telaUsuario.fxml"));
                     Parent root = loader.load();

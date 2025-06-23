@@ -48,11 +48,21 @@ public class TelaCadastroController {
         boolean admin = adminCheck.isSelected();
         boolean usuarioComum = usuarioCheck.isSelected();
 
+        if(!User.isValidEmail(email)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro de Cadastro");
+            alert.setHeaderText(null);
+            alert.setContentText("Email inválido. Por favor, insira um email válido.");
+            alert.showAndWait();
+            emailCadastro.clear();
+            return;
+        }
+
         if (admin == true && usuarioComum == false) {
             String senhaHashed = BCrypt.hashpw(senha, BCrypt.gensalt());
             App.getBiblioteca().adicionaUser(new User(user, email, senhaHashed, "ADMIN"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Login");
+            alert.setTitle("Cadastro");
             alert.setHeaderText(null);
             alert.setContentText("Funcionario cadastrado com sucesso!");
             alert.showAndWait();
@@ -77,7 +87,7 @@ public class TelaCadastroController {
             String senhaHashed = BCrypt.hashpw(senha, BCrypt.gensalt());
             App.getBiblioteca().adicionaUser(new User(user, email, senhaHashed, "LEITOR"));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Login");
+            alert.setTitle("Cadastro");
             alert.setHeaderText(null);
             alert.setContentText("Usuario cadastrado com sucesso!");
             alert.showAndWait();

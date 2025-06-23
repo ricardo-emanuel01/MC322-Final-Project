@@ -92,7 +92,7 @@ public class User implements Comparable<User> {
     }
 
 
-    private boolean isValidEmail(String email) {
+    protected static boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         return email != null && email.matches(emailRegex);
     }
