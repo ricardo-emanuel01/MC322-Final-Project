@@ -1,7 +1,7 @@
 package library;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.Map;
 
 
 /**
@@ -11,6 +11,6 @@ import java.util.Set;
  * @return Array com os objetos filtrados
  */
 public interface Filter<T> {
-    ArrayList<T> aplica(Set<T> item, String criteria);
+    ArrayList<T> aplica(Map<String, T> item, String criteria);
 
 }

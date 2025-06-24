@@ -42,8 +42,6 @@ public class TelaUsuarioController {
     @FXML
     private Button botaoIrRenovacoes;
 
-    private List<String> listaLivros = new ArrayList<>();
-
     /*@FXML
     public void initialize() {
         // Cadastra os livros
@@ -60,13 +58,12 @@ public class TelaUsuarioController {
 
     @FXML
     void fazerBusca(ActionEvent event) {
-        String termo = campoBusca.getText().trim().toLowerCase();
+        String titulo = campoBusca.getText().trim().toLowerCase();
 
-        List<String> resultados = listaLivros.stream()
-                .filter(livro -> livro.toLowerCase().contains(termo))
-                .collect(Collectors.toList());
+        EmprestavelTituloFilter filter = new EmprestavelTituloFilter();
+        List<Emprestavel> livros = filter.aplica(App.getBiblioteca().getAcervo(), titulo);
 
-        listaResultados.setItems(FXCollections.observableArrayList(resultados));
+        listaResultados.setItems(FXCollections.observableArrayList(livros));
 
         if (resultados.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

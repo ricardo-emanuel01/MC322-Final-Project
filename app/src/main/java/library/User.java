@@ -24,7 +24,7 @@ public class User implements Comparable<User> {
         this.primeiroNome = primeiroNome;
         this.email = email;
         this.senhaHashed = senha;
-        this.permissoes = Permissoes.valueOf(permissoes);
+        this.permissoes = Permissoes.valueOf(permissoes.toUpperCase());
         this.emprestimos = new ArrayList<Emprestimo>();
     }
 

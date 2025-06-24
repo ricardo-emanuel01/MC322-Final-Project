@@ -52,7 +52,7 @@ public class TelaLoginController {
             alert.setContentText("Login efetuado com sucesso!");
             alert.showAndWait();
 
-            if (App.getBiblioteca().getUsuarioLogado().getPermissoes().equals("ADMIN")){
+            if (App.getBiblioteca().getUsuarioLogado().getPermissoes().equals("admin")){
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("telaFuncionario.fxml"));
                     Parent root = loader.load();

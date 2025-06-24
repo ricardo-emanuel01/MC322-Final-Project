@@ -5,8 +5,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.TreeSet;
-import java.util.Set;
+import java.util.TreeMap;
+import java.util.Map;
 
 
 // Poderá se tornar um Repository genérico com User
@@ -19,17 +19,17 @@ public class LivroRepository {
         this.gson = GsonFactory.getGson();
     }
 
-    public void saveLivros(Set<Livro> livros) throws IOException {
+    public void saveLivros(Map<String, Livro> livros) throws IOException {
         try (Writer writer = new FileWriter(this.file)) {
             gson.toJson(livros, writer);
         }
     }
 
-    public Set<Livro> loadLivros() throws IOException {
-        if (!this.file.exists()) return new TreeSet<>();
+    public Map<String, Livro> loadLivros() throws IOException {
+        if (!this.file.exists()) return new TreeMap<>();
 
         try (Reader reader = new FileReader(this.file)) {
-            Type setType = new TypeToken<Set<Livro>>() {}.getType();
+            Type setType = new TypeToken<Map<String, Livro>>() {}.getType();
             return gson.fromJson(reader, setType);
         }
     }

@@ -1,7 +1,7 @@
 package library;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.Map;
 
 public class FilterCollection {
     // classe que vai aplicar os filtros
@@ -15,20 +15,9 @@ public class FilterCollection {
      * @param criteria o critério de filtragem
      * @return Array com objetos filtrados
      */
-    public static ArrayList<User> filtrarUser(Set<User> users, String criteria) {
-        UserFilter filtro = new UserFilter();
+    public static ArrayList<User> filtrarUser(Map<String, User> users, String criteria) {
+        UserNomeFilter filtro = new UserNomeFilter();
         return filtro.aplica(users, criteria);
-    }
-
-    /**
-     * Filtra um conjunto de empréstimos com base em um critério
-     * @param emprestimos o conjunto de empréstimos a ser filtrado
-     * @param criteria o critério de filtragem
-     * @return Array com objetos filtrados
-     */
-    public static ArrayList<Emprestimo> filtrarEmprestimo(Set<Emprestimo> emprestimos, String criteria) {
-        EmprestimoFilter filtro = new EmprestimoFilter();
-        return filtro.aplica(emprestimos, criteria);
     }
 
     /**
@@ -37,8 +26,8 @@ public class FilterCollection {
      * @param criteria o critério de filtragem
      * @return Array com objetos filtrados
      */
-    public static ArrayList<Emprestavel> filtrarEmprestavel(Set<Emprestavel> emprestaveis, String criteria) {
-        EmprestavelFilter filtro = new EmprestavelFilter();
+    public static ArrayList<Emprestavel> filtrarEmprestavel(Map<String, Emprestavel> emprestaveis, String criteria) {
+        EmprestavelTituloFilter filtro = new EmprestavelTituloFilter();
         return filtro.aplica(emprestaveis, criteria);
     }
 }
