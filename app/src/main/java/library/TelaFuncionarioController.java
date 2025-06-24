@@ -16,6 +16,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 
 public class TelaFuncionarioController {
 
@@ -38,11 +44,26 @@ public class TelaFuncionarioController {
     protected Label labelNomeBiblioteca2;
 
     @FXML
-    private ListView<String> listaLivrosFuncionario;
+    private ListView<String> listaResultados;
 
     @FXML
     private Button botaoSair;
 
+
+    private void exibirTodosLivros() {
+        Map<String, Emprestavel> acervo = App.getBiblioteca().getAcervo();
+        List<String> titulos = acervo.values().stream()
+                .map(Emprestavel::getTitulo)
+                .collect(Collectors.toList());
+        listaResultados.setItems(FXCollections.observableArrayList(titulos));
+    }
+
+
+
+    @FXML
+    public void initialize() {
+        exibirTodosLivros();
+    }
     @FXML
     void cadastrarLivro(ActionEvent event){
         String titulo = tituloLivro.getText();
@@ -74,19 +95,6 @@ public class TelaFuncionarioController {
             autoresLivro.clear();
             idLivro.clear();
         }
-
-        listaLivrosFuncionario.setItems(
-            FXCollections.observableArrayList(
-                App.getBiblioteca().getAcervo()
-                    .values()
-                    .stream()
-                    .filter(e -> e instanceof Livro)
-                    .map(e -> ((Livro) e).getTitulo())
-                    .toList()
-            )
-        );
-
-
     }
 
     @FXML

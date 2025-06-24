@@ -70,7 +70,7 @@
             <TextField fx:id="subtituloLivro" layoutX="362.0" layoutY="200.0" prefHeight="26.0" prefWidth="234.0" />
             <TextField fx:id="autoresLivro" layoutX="363.0" layoutY="258.0" />
             <TextField fx:id="idLivro" layoutX="363.0" layoutY="314.0" />
-            <ListView fx:id="listaLivrosFuncionario" layoutX="58.0" layoutY="126.0" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="listaResultados" layoutX="58.0" layoutY="126.0" prefHeight="200.0" prefWidth="200.0" />
             <Label layoutX="114.0" layoutY="99.0" text="Lista de Livros">
                <font>
                   <Font size="14.0" />

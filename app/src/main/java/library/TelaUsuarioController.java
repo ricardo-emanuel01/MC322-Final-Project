@@ -2,6 +2,7 @@ package library;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -42,43 +43,41 @@ public class TelaUsuarioController {
     @FXML
     private Button botaoIrRenovacoes;
 
-    /*@FXML
-    public void initialize() {
-        // Cadastra os livros
-        /*App.getBiblioteca().cadastrarLivro(new Livro("1","1984", "a", List.of("George Orwell")));
-        App.getBiblioteca().cadastrarLivro(new Livro("2","Dom Casmurro", "b", List.of("Machado de Assis")));
-        
-        for (Livro livro : App.getBiblioteca().getLivros()) {
-            // Adiciona o livro a lista
-            listaLivros.add(livro.getTitulo());
-        }
-        // Exibe a lista no listView
-        listaResultados.setItems(FXCollections.observableArrayList(listaLivros));
-    }*/
 
     @FXML
     void fazerBusca(ActionEvent event) {
-        String titulo = campoBusca.getText().trim().toLowerCase();
+        Map<String, Emprestavel> acervo = App.getBiblioteca().getAcervo();
+        String termo = campoBusca.getText().trim().toLowerCase();
+        List<String> listaLivros = new ArrayList<>();
+        List<String> resultados = listaLivros.stream()
+                .filter(livro -> livro.toLowerCase().contains(termo))
+                .collect(Collectors.toList());
 
-        EmprestavelTituloFilter filter = new EmprestavelTituloFilter();
-        List<Emprestavel> livros = filter.aplica(App.getBiblioteca().getAcervo(), titulo);
+        listaResultados.setItems(FXCollections.observableArrayList(resultados));
 
-        // Converter a lista de objetos para uma lista de Strings (títulos)
-        List<String> titulos = livros.stream()
-            .map(Emprestavel::getTitulo) // ou l -> l.getTitulo()
-            .collect(Collectors.toList());
-
-        // Atualizar o ListView com Strings
-        listaResultados.setItems(FXCollections.observableArrayList(titulos));
-
-        // Checar se encontrou resultados
-        if (titulos.isEmpty()) {
+        if (resultados.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Busca");
             alert.setHeaderText(null);
             alert.setContentText("Nenhum livro encontrado.");
             alert.showAndWait();
         }
+    }
+
+
+    private void exibirTodosLivros() {
+        Map<String, Emprestavel> acervo = App.getBiblioteca().getAcervo();
+        List<String> titulos = acervo.values().stream()
+                .map(Emprestavel::getTitulo)
+                .collect(Collectors.toList());
+        listaResultados.setItems(FXCollections.observableArrayList(titulos));
+    }
+
+
+
+    @FXML
+    public void initialize() {
+        exibirTodosLivros();
     }
 
 

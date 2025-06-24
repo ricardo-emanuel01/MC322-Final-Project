@@ -56,7 +56,7 @@
             </Label>
             <TextField fx:id="campoBusca" layoutX="27.0" layoutY="139.0" prefHeight="26.0" prefWidth="186.0" />
             <Button fx:id="botaoBuscar" layoutX="223.0" layoutY="140.0" mnemonicParsing="false" onAction="#fazerBusca" text="Buscar" />
-            <ListView fx:id="listaLivros" layoutX="27.0" layoutY="174.0" prefHeight="200.0" prefWidth="253.0" />
+            <ListView fx:id="listaResultados" layoutX="27.0" layoutY="174.0" prefHeight="200.0" prefWidth="253.0" />
             <Button fx:id="botaoSair" layoutX="590.0" layoutY="44.0" mnemonicParsing="false" onAction="#sair" text="Sair" />
             <Button fx:id="botaoIrEmprestimos" layoutX="433.0" layoutY="161.0" mnemonicParsing="false" onAction="#telaEmprestimos" text="Empréstimos" />
             <Button fx:id="botaoIrDevolucoes" layoutX="436.0" layoutY="219.0" mnemonicParsing="false" onAction="#telaDevolucoes" text="Devoluções" />
