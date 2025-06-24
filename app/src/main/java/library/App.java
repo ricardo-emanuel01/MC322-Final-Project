@@ -41,6 +41,7 @@ public class App extends Application{
         Map<String, Emprestavel> emprestavelMap = new TreeMap<>();
         for (Map.Entry<String, Livro> livro : livrosMap.entrySet()) {
             emprestavelMap.put(livro.getKey(), livro.getValue());
+            System.out.println(livro.getValue().getTitulo());
         }
         biblioteca = new Biblioteca("", 7, emprestavelMap, usuariosMap, emprestimosMap);
 

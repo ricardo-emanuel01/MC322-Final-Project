@@ -15,7 +15,7 @@ public class EmprestavelTituloFilter implements Filter<Emprestavel> {
     public ArrayList<Emprestavel> aplica(Map<String, Emprestavel> items, String criteria) {
         ArrayList<Emprestavel> emprestavelArray = new ArrayList<>();
         for (Map.Entry<String, Emprestavel> entry : items.entrySet()) {
-            if (entry.getValue().getTitulo().equals(criteria)) {
+            if (entry.getValue().getTitulo().toLowerCase().equals(criteria.toLowerCase())) {
                 emprestavelArray.add(entry.getValue());
             }
         }

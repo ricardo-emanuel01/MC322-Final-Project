@@ -16,8 +16,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class TelaFuncionarioController {
+public class TelaFuncionarioController implements Initializable {
 
     @FXML
     private TextField tituloLivro;
@@ -42,6 +45,20 @@ public class TelaFuncionarioController {
 
     @FXML
     private Button botaoSair;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        listaLivrosFuncionario.setItems(
+            FXCollections.observableArrayList(
+                App.getBiblioteca().getAcervo()
+                    .values()
+                    .stream()
+                    .filter(e -> e instanceof Livro)
+                    .map(e -> ((Livro) e).getTitulo())
+                    .toList()
+            )
+        );
+    }
 
     @FXML
     void cadastrarLivro(ActionEvent event){
@@ -74,19 +91,6 @@ public class TelaFuncionarioController {
             autoresLivro.clear();
             idLivro.clear();
         }
-
-        listaLivrosFuncionario.setItems(
-            FXCollections.observableArrayList(
-                App.getBiblioteca().getAcervo()
-                    .values()
-                    .stream()
-                    .filter(e -> e instanceof Livro)
-                    .map(e -> ((Livro) e).getTitulo())
-                    .toList()
-            )
-        );
-
-
     }
 
     @FXML

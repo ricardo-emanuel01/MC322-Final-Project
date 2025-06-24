@@ -10,9 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,17 +35,6 @@ public class TelaEmprestimoController {
 
     // Lista de obras cadastradas na biblioteca
     private Map<String, Emprestavel> acervo = App.getBiblioteca().getAcervo();
-
-    // Formato de data
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-    // Inicializa com alguns livros
-    // public telaEmprestimoController() {
-    //     biblioteca.add("1984");
-    //     biblioteca.add("Dom Casmurro");
-    //     biblioteca.add("Harry Potter");
-    //     biblioteca.add("O Pequeno Príncipe");
-    // }
 
     @FXML
     void voltarParaUsuario(ActionEvent event) {
