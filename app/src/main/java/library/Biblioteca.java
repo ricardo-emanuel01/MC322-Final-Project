@@ -119,6 +119,7 @@ public class Biblioteca {
                 dataEmprestimo
             )
         );
+        object.emprestar(this.usuarioLogado.getEmail(), dataEmprestimo.plusDays(this.diasPorEmprestimo));
 
         return true;
     }

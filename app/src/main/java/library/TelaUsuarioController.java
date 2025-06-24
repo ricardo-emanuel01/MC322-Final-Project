@@ -3,7 +3,6 @@ package library;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,8 +15,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class TelaUsuarioController {
+public class TelaUsuarioController implements Initializable {
 
     @FXML
     private Button botaoBuscar;
@@ -29,7 +31,7 @@ public class TelaUsuarioController {
     protected Label labelNomeBiblioteca3;
 
     @FXML
-    private ListView<String> listaResultados;
+    private ListView<String> listaLivros;
 
     @FXML
     private Button botaoSair;
@@ -44,24 +46,44 @@ public class TelaUsuarioController {
     private Button botaoIrRenovacoes;
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        listaLivros.setItems(
+            FXCollections.observableArrayList(
+                App.getBiblioteca().getAcervo()
+                    .values()
+                    .stream()
+                    .filter(e -> e.getDisponibilidade())
+                    .map(e -> ((Livro) e).getTitulo())
+                    .toList()
+            )
+        );
+    }
+
+
     @FXML
     void fazerBusca(ActionEvent event) {
         Map<String, Emprestavel> acervo = App.getBiblioteca().getAcervo();
         String termo = campoBusca.getText().trim().toLowerCase();
-        List<String> listaLivros = new ArrayList<>();
-        List<String> resultados = listaLivros.stream()
-                .filter(livro -> livro.toLowerCase().contains(termo))
-                .collect(Collectors.toList());
-
-        listaResultados.setItems(FXCollections.observableArrayList(resultados));
-
-        if (resultados.isEmpty()) {
+        
+        EmprestavelTituloFilter filter = new EmprestavelTituloFilter();
+        ArrayList<Emprestavel> resultados = filter.aplica(acervo, termo);
+        List<String> resultadosString = resultados
+                        .stream()
+                        .filter(e -> e.getDisponibilidade())
+                        .map(e -> ((Livro) e).getTitulo().toLowerCase())
+                        .filter(e -> e.contains(termo))
+                        .toList();
+                    
+        if (resultadosString.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Busca");
             alert.setHeaderText(null);
             alert.setContentText("Nenhum livro encontrado.");
             alert.showAndWait();
         }
+
+        listaLivros.setItems(FXCollections.observableArrayList(resultadosString));
     }
 
 
