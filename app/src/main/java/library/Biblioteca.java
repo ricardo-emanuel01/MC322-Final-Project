@@ -139,6 +139,7 @@ public class Biblioteca {
 
         usuario.devolver(emprestimo.objEmprestado());
         emprestimos.remove(emprestimo.objEmprestado());
+        this.acervo.get(emprestimo.objEmprestado()).devolver(emailUsuario);
 
         return true;
     }
