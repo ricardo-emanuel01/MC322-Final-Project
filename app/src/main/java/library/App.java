@@ -1,10 +1,14 @@
 package library;
 
+import java.io.File;
+import java.util.Map;
+import java.util.TreeMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.google.gson.reflect.TypeToken;
 
 public class App extends Application{
 
@@ -25,8 +29,24 @@ public class App extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        File livros = new File("bd/livros.json");
+        File usuarios = new File("bd/usuarios.json");
+        File emprestimos = new File("bd/emprestimos.json");
+        Repository<Livro> repoLivros = new Repository<>(livros, new TypeToken<TreeMap<String, Livro>>() {}.getType());
+        Repository<User> repoUsuarios = new Repository<>(usuarios, new TypeToken<TreeMap<String, User>>() {}.getType());
+        Repository<Emprestimo> repoEmprestimos = new Repository<>(emprestimos, new TypeToken<TreeMap<String, Emprestimo>>() {}.getType());
+        Map<String, Livro> livrosMap = repoLivros.load();
+        Map<String, User> usuariosMap = repoUsuarios.load();
+        Map<String, Emprestimo> emprestimosMap = repoEmprestimos.load();
+        Map<String, Emprestavel> emprestavelMap = new TreeMap<>();
+        for (Map.Entry<String, Livro> livro : livrosMap.entrySet()) {
+            emprestavelMap.put(livro.getKey(), livro.getValue());
+            System.out.println(livro.getValue().getTitulo());
+        }
+        biblioteca = new Biblioteca("", 7, emprestavelMap, usuariosMap, emprestimosMap);
+
+
         mainStage = primaryStage;
-        biblioteca = new Biblioteca("", 7);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("telaCriarBiblioteca.fxml"));
         Parent root = fxmlLoader.load();
@@ -37,5 +57,20 @@ public class App extends Application{
         primaryStage.setHeight(650);
         primaryStage.centerOnScreen();
         primaryStage.show();
+    }
+
+
+    @Override
+    public void stop() throws Exception {
+        File livros = new File("bd/livros.json");
+        File usuarios = new File("bd/usuarios.json");
+        File emprestimos = new File("bd/emprestimos.json");
+        Repository<Livro> repoLivros = new Repository<>(livros, new TypeToken<TreeMap<String, Livro>>() {}.getType());
+        Repository<User> repoUsuarios = new Repository<>(usuarios, new TypeToken<TreeMap<String, User>>() {}.getType());
+        Repository<Emprestimo> repoEmprestimos = new Repository<>(emprestimos, new TypeToken<TreeMap<String, Emprestimo>>() {}.getType());
+
+        repoLivros.save(App.getBiblioteca().getLivros());
+        repoUsuarios.save(App.getBiblioteca().getUsuarios());
+        repoEmprestimos.save(App.getBiblioteca().getEmprestimos());
     }
 }

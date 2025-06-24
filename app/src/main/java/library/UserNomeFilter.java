@@ -1,9 +1,10 @@
 package library;
 
-import java.util.Set;
+
+import java.util.Map;
 import java.util.ArrayList;
 
-public class UserFilter implements Filter<User> {
+public class UserNomeFilter implements Filter<User> {
 
     /**
      * Aplica um filtro a um conjunto de itens User com base num critério fornecido
@@ -12,11 +13,11 @@ public class UserFilter implements Filter<User> {
      * @return Array com itens filtrados
      */
     @Override
-    public ArrayList<User> aplica(Set<User> items, String criteria) {
+    public ArrayList<User> aplica(Map<String, User> items, String criteria) {
         ArrayList<User> userArray = new ArrayList<>();
-        for (User user : items) {
-            if (user.getEmail().equals(criteria)) {
-                userArray.add(user);
+        for (Map.Entry<String, User> entry : items.entrySet()) {
+            if (entry.getValue().getPrimeiroNome().equals(criteria)) {
+                userArray.add(entry.getValue());
             }
         }
         return userArray;

@@ -2,6 +2,7 @@ package library;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -15,8 +16,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class TelaFuncionarioController {
+public class TelaFuncionarioController implements Initializable {
 
     @FXML
     private TextField tituloLivro;
@@ -42,6 +46,20 @@ public class TelaFuncionarioController {
     @FXML
     private Button botaoSair;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        listaLivrosFuncionario.setItems(
+            FXCollections.observableArrayList(
+                App.getBiblioteca().getAcervo()
+                    .values()
+                    .stream()
+                    .filter(e -> e instanceof Livro)
+                    .map(e -> ((Livro) e).getTitulo())
+                    .toList()
+            )
+        );
+    }
+
     @FXML
     void cadastrarLivro(ActionEvent event){
         String titulo = tituloLivro.getText();
@@ -49,7 +67,7 @@ public class TelaFuncionarioController {
         String autores = autoresLivro.getText();
         String id = idLivro.getText();
 
-        if(titulo.isEmpty() || autores.isEmpty() || subtitulo.isEmpty() || id.isEmpty()){
+        if (titulo.isEmpty() || autores.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
             alert.setHeaderText(null);
@@ -57,8 +75,8 @@ public class TelaFuncionarioController {
             alert.showAndWait();
         } else {
             // Aqui você pode adicionar o livro ao banco de dados ou lista
-            
             List<String> listaAutores = Arrays.stream(autores.split(",")).map(String::trim).toList();
+            if (id.isEmpty()) id = UUID.randomUUID().toString();
 
             App.getBiblioteca().adicionaEmprestavel(new Livro(id, titulo, subtitulo, listaAutores));
 
@@ -73,19 +91,6 @@ public class TelaFuncionarioController {
             autoresLivro.clear();
             idLivro.clear();
         }
-
-listaLivrosFuncionario.setItems(
-    FXCollections.observableArrayList(
-        App.getBiblioteca().getAcervo()
-            .values()
-            .stream()
-            .filter(e -> e instanceof Livro)
-            .map(e -> ((Livro) e).getTitulo())
-            .toList()
-    )
-);
-
-
     }
 
     @FXML

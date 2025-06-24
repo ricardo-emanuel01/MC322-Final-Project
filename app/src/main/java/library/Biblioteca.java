@@ -18,14 +18,31 @@ public class Biblioteca {
     /**
      * Construtor da classe Biblioteca que vai essencialmente gerir todo o programa
      * @param nome o nome escolhido para nossa Biblioteca
-     * @param endereco o endereco da mesma Biblioteca
+     * @param diasPorEmprestimo quantos dias vale cada emprestimo
+     * @param acervo acervo salvo em bd
+     * @param usuarios usuarios salvos em bd
+     * @param emprestimos emprestimos salvos em bd
      */
-    public Biblioteca(String nome, int diasPorEmprestimo) {
+    public Biblioteca(
+        String nome,
+        int diasPorEmprestimo,
+        Map<String, Emprestavel> acervo,
+        Map<String, User> usuarios,
+        Map<String, Emprestimo> emprestimos
+    ) {
         this.nome = nome;
-        this.acervo = new TreeMap<>();
-        this.usuarios = new TreeMap<>();
-        this.emprestimos = new TreeMap<>();
         this.diasPorEmprestimo = diasPorEmprestimo;
+        if (acervo != null) this.acervo = acervo;
+        else this.acervo = new TreeMap<>();
+        if (usuarios != null) this.usuarios = usuarios;
+        else this.usuarios = new TreeMap<>();
+        if (emprestimos != null) {
+            this.emprestimos = emprestimos;
+            for (Map.Entry<String, Emprestimo> emprestimo : emprestimos.entrySet()) {
+                this.usuarios.get(emprestimo.getValue().usuario()).emprestar(emprestimo.getValue());
+            }
+        }
+        else this.emprestimos = new TreeMap<>();
         this.usuarioLogado = null;
     }
 
@@ -33,6 +50,16 @@ public class Biblioteca {
     // getters 
     protected String getNome() { return this.nome; }
     protected Map<String, Emprestavel> getAcervo() { return this.acervo; }
+    protected Map<String, Livro> getLivros() {
+        Map<String, Livro> livros = new TreeMap<>();
+        for (Map.Entry<String, Emprestavel> entry : this.acervo.entrySet()) {
+            if (entry.getValue().getTipo() == "livro") {
+                livros.put(entry.getKey(), (Livro)entry.getValue());
+            }
+        }
+
+        return livros;
+    }
     protected Map<String, User> getUsuarios() { return this.usuarios; }
     protected Map<String, Emprestimo> getEmprestimos() {
         return this.emprestimos;
@@ -82,16 +109,20 @@ public class Biblioteca {
         if (this.emprestimos.get(object.getID()) != null) return false;
 
         LocalDate dataEmprestimo = LocalDate.now();
-        emprestimos.put(
-            object.getID(),
-            new Emprestimo(
+        Emprestimo emprestimo = new Emprestimo(
                 usuarioLogado.getEmail(),
                 object.getID(),
                 dataEmprestimo,
                 dataEmprestimo.plusDays(this.diasPorEmprestimo),
                 dataEmprestimo
-            )
+            );
+        emprestimos.put(
+            object.getID(),
+            emprestimo
         );
+
+        object.emprestar(this.usuarioLogado.getEmail(), dataEmprestimo.plusDays(this.diasPorEmprestimo));
+        this.usuarioLogado.emprestar(emprestimo);
 
         return true;
     }
@@ -111,6 +142,7 @@ public class Biblioteca {
 
         usuario.devolver(emprestimo.objEmprestado());
         emprestimos.remove(emprestimo.objEmprestado());
+        this.acervo.get(emprestimo.objEmprestado()).devolver(emailUsuario);
 
         return true;
     }
@@ -140,6 +172,7 @@ public class Biblioteca {
             hoje
         );
 
+        this.acervo.get(emprestavel).emprestar(emprestavel, hoje.plusDays(this.diasPorEmprestimo));
         this.usuarioLogado.renovar(emprestimoRenovado);
         this.emprestimos.remove(emprestavel);
         this.emprestimos.put(emprestavel, emprestimoRenovado);

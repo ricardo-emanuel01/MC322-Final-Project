@@ -1,12 +1,10 @@
 package library;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 
-public class EmprestavelFilter implements Filter<Emprestavel> {
-
+public class EmprestavelTituloFilter implements Filter<Emprestavel> {
     /**
      * Aplica um filtro a um conjunto de itens Emprestavel com base num critério fornecido
      * @param items    O set Emprestavel de items para o filter
@@ -14,11 +12,11 @@ public class EmprestavelFilter implements Filter<Emprestavel> {
      * @return Array com itens filtrados
      */
     @Override
-    public ArrayList<Emprestavel> aplica(Set<Emprestavel> items, String criteria) {
+    public ArrayList<Emprestavel> aplica(Map<String, Emprestavel> items, String criteria) {
         ArrayList<Emprestavel> emprestavelArray = new ArrayList<>();
-        for (Emprestavel emprestavel : items) {
-            if (emprestavel.getID().equals(criteria)) {
-                emprestavelArray.add(emprestavel);
+        for (Map.Entry<String, Emprestavel> entry : items.entrySet()) {
+            if (entry.getValue().getTitulo().toLowerCase().equals(criteria.toLowerCase())) {
+                emprestavelArray.add(entry.getValue());
             }
         }
         return emprestavelArray;
