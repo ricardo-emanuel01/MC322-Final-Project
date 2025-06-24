@@ -63,9 +63,16 @@ public class TelaUsuarioController {
         EmprestavelTituloFilter filter = new EmprestavelTituloFilter();
         List<Emprestavel> livros = filter.aplica(App.getBiblioteca().getAcervo(), titulo);
 
-        listaResultados.setItems(FXCollections.observableArrayList(livros));
+        // Converter a lista de objetos para uma lista de Strings (títulos)
+        List<String> titulos = livros.stream()
+            .map(Emprestavel::getTitulo) // ou l -> l.getTitulo()
+            .collect(Collectors.toList());
 
-        if (resultados.isEmpty()) {
+        // Atualizar o ListView com Strings
+        listaResultados.setItems(FXCollections.observableArrayList(titulos));
+
+        // Checar se encontrou resultados
+        if (titulos.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Busca");
             alert.setHeaderText(null);
@@ -73,6 +80,7 @@ public class TelaUsuarioController {
             alert.showAndWait();
         }
     }
+
 
 
     @FXML
