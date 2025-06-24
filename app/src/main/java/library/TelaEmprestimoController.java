@@ -90,5 +90,7 @@ public class TelaEmprestimoController {
         }
 
         App.getBiblioteca().adicionaEmprestimo(objeto);
+        labelMensagem.setText("Empréstimo bem sucedido!");
+        campoObra.clear();
     }
 }
