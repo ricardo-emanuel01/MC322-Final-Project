@@ -23,7 +23,7 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Button fx:id="botaoCadastrarLivro" layoutX="407.0" layoutY="359.0" mnemonicParsing="false" text="Cadastrar novo livro" />
+            <Button fx:id="botaoCadastrarLivro" layoutX="407.0" layoutY="359.0" mnemonicParsing="false" onAction="#cadastrarLivro" text="Cadastrar novo livro" />
             <Line endX="1.0" endY="-59.100006103515625" layoutX="319.0" layoutY="169.0" startX="1.0" startY="223.89288330078125" />
             <Label layoutX="416.0" layoutY="99.0" text="Cadastrar novo livro">
                <font>
