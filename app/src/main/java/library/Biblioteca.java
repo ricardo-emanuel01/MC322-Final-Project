@@ -109,17 +109,20 @@ public class Biblioteca {
         if (this.emprestimos.get(object.getID()) != null) return false;
 
         LocalDate dataEmprestimo = LocalDate.now();
-        emprestimos.put(
-            object.getID(),
-            new Emprestimo(
+        Emprestimo emprestimo = new Emprestimo(
                 usuarioLogado.getEmail(),
                 object.getID(),
                 dataEmprestimo,
                 dataEmprestimo.plusDays(this.diasPorEmprestimo),
                 dataEmprestimo
-            )
+            );
+        emprestimos.put(
+            object.getID(),
+            emprestimo
         );
+
         object.emprestar(this.usuarioLogado.getEmail(), dataEmprestimo.plusDays(this.diasPorEmprestimo));
+        this.usuarioLogado.emprestar(emprestimo);
 
         return true;
     }
@@ -169,6 +172,7 @@ public class Biblioteca {
             hoje
         );
 
+        this.acervo.get(emprestavel).emprestar(emprestavel, hoje.plusDays(this.diasPorEmprestimo));
         this.usuarioLogado.renovar(emprestimoRenovado);
         this.emprestimos.remove(emprestavel);
         this.emprestimos.put(emprestavel, emprestimoRenovado);

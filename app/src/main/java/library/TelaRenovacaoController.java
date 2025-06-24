@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -39,47 +41,27 @@ public class TelaRenovacaoController {
     @FXML
     private Button botaoVoltar;
 
-    private List<String> biblioteca = new ArrayList<>();
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-/*
-    public telaRenovacaoController() {
-        biblioteca.add("1984");
-        biblioteca.add("Dom Casmurro");
-        biblioteca.add("Harry Potter");
-        biblioteca.add("O Pequeno Príncipe");
-    }*/
-
     @FXML
     void fazerRenovacao(ActionEvent event) {
-        String obra = campoObra.getText().trim();
-        String dataStr = campoData.getText().trim();
+        String obra = campoObra.getText().trim().toLowerCase();
+        Map<String, Emprestavel> acervo = App.getBiblioteca().getAcervo();
+        Emprestimo paraRenovar = null;
 
-        if (!biblioteca.contains(obra)) {
-            labelMensagem.setText("Livro não cadastrado na biblioteca.");
+        for (Emprestimo emprestimo : App.getBiblioteca().getUsuarioLogado().getEmprestimos()) {
+            Emprestavel obj = acervo.get(emprestimo.objEmprestado());
+            if (obj != null && obj.getTitulo().toLowerCase().contains(obra)) {
+                paraRenovar = emprestimo;
+                break;
+            }
+        }
+
+        if (paraRenovar == null) {
+            labelMensagem.setText("Obra nao existe ou não foi emprestada por você.");
             return;
         }
 
-        try {
-            LocalDate dataEmprestimo = LocalDate.parse(dataStr, formatter);
-            LocalDate hoje = LocalDate.now();
-
-            if (dataEmprestimo.isAfter(hoje)) {
-                labelMensagem.setText("A data de empréstimo não pode ser no futuro.");
-                return;
-            }
-
-            long diasTotal = java.time.temporal.ChronoUnit.DAYS.between(dataEmprestimo, hoje);
-            long diasDeAtraso = diasTotal - 7;
-
-            if (diasDeAtraso > 0) {
-                labelMensagem.setText("Não é possível renovar: o empréstimo está em atraso.");
-            } else {
-                LocalDate novaDataLimite = dataEmprestimo.plusDays(7 + 7);  // renova por mais 7 dias
-                labelMensagem.setText("Renovação feita com sucesso! Novo prazo: " + novaDataLimite.format(formatter));
-            }
-        } catch (DateTimeParseException e) {
-            labelMensagem.setText("Data inválida! Use o formato dd/MM/yyyy.");
-        }
+        App.getBiblioteca().renovaEmprestimo(obra);
+        labelMensagem.setText("Renovação feita com sucesso");
     }
 
     @FXML

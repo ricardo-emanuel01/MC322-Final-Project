@@ -18,8 +18,6 @@
             </Label>
             <TextField fx:id="campoObra" layoutX="217.0" layoutY="148.0" />
             <Label layoutX="217.0" layoutY="117.0" text="Qual obra você tem em mãos?" />
-            <Label layoutX="220.0" layoutY="200.0" text="Qual a data de empréstimo?" />
-            <TextField fx:id="campoData" layoutX="220.0" layoutY="231.0" />
             <Button fx:id="botaoVoltar" layoutX="273.0" layoutY="320.0" onAction="#voltarParaUsuario" text="Voltar" />
             <Button fx:id="botaoRenovar" layoutX="273.0" layoutY="291.0" mnemonicParsing="false" onAction="#fazerRenovacao" text="Renovar" />
             <Label fx:id="labelMensagem" layoutX="220.0" layoutY="343.0" text="--" />
