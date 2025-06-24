@@ -76,7 +76,7 @@ public class TelaEmprestimoController {
 
     @FXML
     void fazerEmprestimo(ActionEvent event) {
-        String obra = campoObra.getText().trim();
+        String obra = campoObra.getText().trim().toLowerCase();
 
         if (obra.isEmpty()) {
             labelMensagem.setText("Por favor, informe o nome da obra.");
